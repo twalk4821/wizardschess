@@ -40,9 +40,9 @@ class Hud extends Component {
 
 	startRecording(e) {
 		e.preventDefault()
-		this.setState({
-			recording: true
-		})
+		// this.setState({
+		// 	recording: true
+		// })
 		this.recognition.start()
 		this.recognition.addEventListener('result', (e) => {
 			let last = e.results.length - 1;
