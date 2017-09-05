@@ -33,9 +33,10 @@ class HomeContainer extends Component {
 		}
 	}
 	updateNames() {
+
 		const names = {
-			white: this.state.white,
-			black: this.state.black
+			white: this.state.white.length > 0 ? this.state.white : "Harry",
+			black: this.state.black.length > 0 ? this.state.black : "Lars"
 		}
 		this.props.updatePlayerNames(names)
 	}

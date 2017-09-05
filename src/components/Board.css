@@ -42,3 +42,12 @@
 .hud {
 	float: right;
 }
+
+.voiceCommand {
+	color: white;
+	background-color: red;
+	border-radius: 5;
+	width: 100px;
+	height: 35px;
+
+}

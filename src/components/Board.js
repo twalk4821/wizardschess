@@ -121,7 +121,10 @@ class Board extends Component {
 		console.log(livePieces)
 		for (let livePiece of livePieces[pieceType]) {
 			const square = <Square piece={livePiece} toggle={this.toggleActive} pos={{x:x, y:y}}/>
-			if (this.move(livePiece, square)) {
+			var val = this.move(livePiece, square)
+			console.log("hello",val)
+			if (val) {
+				console.log("moved")
 				return true
 			}
 		}
@@ -151,14 +154,8 @@ class Board extends Component {
 				return false
 			}
 
-			let capturedPiece = board.move(piece, destination) 
-			if (capturedPiece) {
+			board.move(piece, destination) 
 
-			}
-
-			this.setState({
-				board: board,
-			})
 			if (this.props.turn === "black") {
 				this.setState({
 					turnNumber: this.state.turnNumber + 1
@@ -169,6 +166,7 @@ class Board extends Component {
 			if (piece.type === "pawn") {
 				piece.hasMoved = true
 			}
+			console.log('returning true')
 			return true	
 		}
 		else {
@@ -210,7 +208,7 @@ class Board extends Component {
 				<div className="board">
 					{Squares}
 				</div>
-				<Hud executeCommand={this.executeCommand} turn={this.props.turn} turnNumber={this.state.turnNumber} capturedPieces={this.state.board.capturedPieces}/>
+				<Hud executeCommand={this.executeCommand} turn={this.props.turn} turnNumber={this.state.turnNumber} capturedPieces={this.state.board.capturedPieces} playerNames={this.props.playerNames}/>
 			</div>
 
 			

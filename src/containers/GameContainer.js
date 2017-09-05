@@ -10,7 +10,7 @@ class GameContainer extends Component {
 		}
 		this.nextTurn = this.nextTurn.bind(this)
 	}
-	
+
 	nextTurn() {
 		this.setState({
 			turn: this.state.turn === "white" ? "black" : "white"
@@ -23,7 +23,7 @@ class GameContainer extends Component {
 			<div className="gameContainer">
 
 				<h2>{playerName + "'s turn."}</h2>
-				<Board nextTurn = {this.nextTurn} turn = {this.state.turn}/>
+				<Board nextTurn = {this.nextTurn} turn = {this.state.turn} playerNames={this.props.playerNames}/>
 			</div>
 		)
 	}

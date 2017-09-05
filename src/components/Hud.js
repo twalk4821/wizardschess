@@ -4,7 +4,8 @@ class Hud extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			recording: false
+			recording: false,
+			message: false
 		}
 		
 		this.startRecording = this.startRecording.bind(this)
@@ -24,7 +25,6 @@ class Hud extends Component {
 		}
 		this.commands = commands
 		const grammar = '#JSGF V1.0; grammar commands; public <command> = ' + commands.join(' | ') + ' ;'
-		console.log(grammar)
 
 		const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 		const SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
@@ -35,27 +35,27 @@ class Hud extends Component {
 		this.recognition.lang = 'en-US';
 		this.recognition.interimResults = false;
 		this.recognition.maxAlternatives = 5;
-		console.log(this.recognition)
 		}
 
 	startRecording(e) {
 		e.preventDefault()
 		this.setState({
-			recording: true
+			recording: true,
+			message: false
 		})
 		this.recognition.start()
 		this.recognition.addEventListener('result', (e) => {
 			let last = e.results.length - 1;
 			let options = e.results[last]
 			for (let option of options) {
-				console.log(option.transcript, this.commands)
 				if (this.commands.indexOf(option.transcript) > -1) {
-					console.log("command found: ", option)
 					this.props.executeCommand(option.transcript)
 					return
 				}
 			}
-			console.log("command not found")
+			this.setState({
+				message: "Command not recognized!"
+			})
 		});
 		this.recognition.onspeechend = function() {
   			this.recognition.stop();
@@ -69,21 +69,27 @@ class Hud extends Component {
 	render() {
 		let capturedWhite = this.props.capturedPieces["white"]
 		let capturedBlack = this.props.capturedPieces["black"]
-		console.log(this.props)
 		
 		return (
 			<div className="hud">
 				<h2>Voice Command </h2>
+				{this.state.message &&
+					<div>{this.state.message}</div>
+				}
 				{!this.state.recording && 
 					<form onSubmit={this.startRecording}>
-						<input type="submit" value="Enter Command"/>
+						<input className="voiceCommand" type="submit" value="Enter Command"/>
 					</form>
+				}
+
+				{this.state.recording &&
+					<div>Listening...</div>
 				}
 				<h2>Turn: {this.props.turnNumber}</h2>
 				<h2>Captured Pieces:</h2>
 				
 				<div>
-					<div>White</div>
+					<div>{this.props.playerNames.white + " (White)"}</div>
 					<ul>
 					{capturedWhite && capturedWhite["pawn"].length>0 &&
 						<li>{"Pawns: " + capturedWhite["pawn"].length}</li>
@@ -102,7 +108,7 @@ class Hud extends Component {
 					}
 					</ul>
 					
-					<div>Black</div>
+					<div>{this.props.playerNames.black + " (Black)"}</div>
 					<ul>
 					{capturedBlack && capturedBlack["pawn"].length>0 &&
 						<li>{"Pawns: " + capturedBlack["pawn"].length}</li>
