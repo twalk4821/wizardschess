@@ -35,6 +35,7 @@ class Hud extends Component {
 		this.recognition.lang = 'en-US';
 		this.recognition.interimResults = false;
 		this.recognition.maxAlternatives = 5;
+		console.log(this.recognition)
 		}
 
 	startRecording(e) {
