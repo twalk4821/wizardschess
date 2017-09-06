@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import images from '../assets/images.js'
 
 class Hud extends Component {
 	constructor(props) {
@@ -92,38 +93,89 @@ class Hud extends Component {
 					<div>{this.props.playerNames.white + " (White)"}</div>
 					<ul>
 					{capturedWhite && capturedWhite["pawn"].length>0 &&
-						<li>{"Pawns: " + capturedWhite["pawn"].length}</li>
+
+						capturedWhite["pawn"].map((pawn) => (
+							<li className="captured">
+								<img src={images.whitepawn}/>
+							</li>
+						))
+						
 					}
 					{capturedWhite && capturedWhite["rook"].length>0 &&
-						<li>{"Rooks: " + capturedWhite["rook"].length}</li>
+
+						capturedWhite["rook"].map((rook) => (
+							<li className="captured">
+								<img src={images.whiterook}/>
+							</li>
+						))
+						
 					}
 					{capturedWhite && capturedWhite["knight"].length>0 &&
-						<li>{"Knights: " + capturedWhite["knight"].length}</li>
+
+						capturedWhite["knight"].map((knight) => (
+							<li className="captured">
+								<img src={images.whiteknight}/>
+							</li>
+						))
+						
 					}
 					{capturedWhite && capturedWhite["bishop"].length>0 &&
-						<li>{"Bishops: " + capturedWhite["bishop"].length}</li>
+
+						capturedWhite["bishop"].map((bishop) => (
+							<li className="captured">
+								<img src={images.whitebishop}/>
+							</li>
+						))
+						
 					}
 					{capturedWhite && capturedWhite["queen"].length>0 &&
-						<li>{"Queen: " + capturedWhite["queen"].length}</li>
+
+						capturedWhite["queen"].map((queen) => (
+							<li className="captured">
+								<img src={images.whitequeen}/>
+							</li>
+						))
+						
 					}
+					
 					</ul>
 					
 					<div>{this.props.playerNames.black + " (Black)"}</div>
 					<ul>
 					{capturedBlack && capturedBlack["pawn"].length>0 &&
-						<li>{"Pawns: " + capturedBlack["pawn"].length}</li>
+						capturedBlack["pawn"].map((pawn) => (
+							<li className="captured">
+								<img src={images.blackpawn}/>
+							</li>
+						))
 					}
 					{capturedBlack && capturedBlack["rook"].length>0 &&
-						<li>{"Rooks: " + capturedBlack["rook"].length}</li>
+						capturedBlack["rook"].map((rook) => (
+							<li className="captured">
+								<img src={images.blackrook}/>
+							</li>
+						))
 					}
 					{capturedBlack && capturedBlack["knight"].length>0 &&
-						<li>{"Knights: " + capturedBlack["knight"].length}</li>
+						capturedBlack["knight"].map((knight) => (
+							<li className="captured">
+								<img src={images.blackknight}/>
+							</li>
+						))
 					}
 					{capturedBlack && capturedBlack["bishop"].length>0 &&
-						<li>{"Bishops: " + capturedBlack["bishop"].length}</li>
+						capturedBlack["bishop"].map((bishop) => (
+							<li className="captured">
+								<img src={images.blackbishop}/>
+							</li>
+						))
 					}
 					{capturedBlack && capturedBlack["queen"].length>0 &&
-						<li>{"Queen: " + capturedBlack["queen"].length}</li>
+						capturedBlack["queen"].map((queen) => (
+							<li className="captured">
+								<img src={images.blackqueen}/>
+							</li>
+						))
 					}
 					</ul>
 

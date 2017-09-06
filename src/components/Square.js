@@ -1,31 +1,5 @@
 import React, { Component } from 'react';
-import blackbishop from "../assets/blackbishop.png"
-import whitebishop from "../assets/whitebishop.png"
-import blackknight from "../assets/blackknight.png"
-import whiteknight from "../assets/whiteknight.png"
-import blackqueen from "../assets/blackqueen.png"
-import whitequeen from "../assets/whitequeen.png"
-import blackking from "../assets/blackking.png"
-import whiteking from "../assets/whiteking.png"
-import blackpawn from "../assets/blackpawn.png"
-import whitepawn from "../assets/whitepawn.png"
-import blackrook from "../assets/blackrook.png"
-import whiterook from "../assets/whiterook.png"
-
-const images = {
-	blackbishop : blackbishop,
-whitebishop : whitebishop,
-blackknight : blackknight,
-whiteknight : whiteknight,
-blackqueen : blackqueen,
-whitequeen : whitequeen,
-blackking : blackking,
-whiteking : whiteking,
-blackpawn : blackpawn,
-whitepawn : whitepawn,
-blackrook : blackrook,
-whiterook : whiterook
-}
+import images from '../assets/images.js'
 
 class Square extends Component {
 	constructor(props) {

@@ -48,6 +48,10 @@
 	float: right;
 }
 
+.captured {
+	display: inline;
+}
+
 .voiceCommand {
 	color: white;
 	background-color: red;
