@@ -18,8 +18,12 @@
 	padding: 20px;
 }
 
-.square {
+.square:nth-child(2n) {
 	background-color: blue;
+}
+
+.square:nth-child(2n+1) {
+	background-color: green;
 }
 
 .square.active {
@@ -32,6 +36,7 @@
 
 .algebra {
 	background-color:white;
+	line-height: 3;
 }
 
 .playArea{
