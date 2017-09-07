@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import images from '../assets/images.js'
+import './Hud.css'
 
 class Hud extends Component {
 	constructor(props) {
@@ -35,7 +36,7 @@ class Hud extends Component {
 		this.recognition.grammars = speechRecognitionList	
 		this.recognition.lang = 'en-US';
 		this.recognition.interimResults = false;
-		this.recognition.maxAlternatives = 5;
+		this.recognition.maxAlternatives = 10;
 		}
 
 	startRecording(e) {
@@ -74,6 +75,7 @@ class Hud extends Component {
 		return (
 			<div className="hud">
 				<h2>Voice Command </h2>
+				<div className="br"></div>
 				{this.state.message &&
 					<div>{this.state.message}</div>
 				}

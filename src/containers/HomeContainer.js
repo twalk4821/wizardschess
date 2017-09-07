@@ -5,8 +5,8 @@ class HomeContainer extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			white: "",
-			black: "",
+			white: "Harry",
+			black: "Draco",
 			step: 1
 		}
 		this.handleChange = this.handleChange.bind(this)
@@ -35,8 +35,8 @@ class HomeContainer extends Component {
 	updateNames() {
 
 		const names = {
-			white: this.state.white.length > 0 ? this.state.white : "Harry",
-			black: this.state.black.length > 0 ? this.state.black : "Draco"
+			white: this.state.white,
+			black: this.state.black
 		}
 		this.props.updatePlayerNames(names)
 	}

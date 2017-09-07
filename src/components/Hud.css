@@ -1,0 +1,23 @@
+h1,h2,h3,h4,h5 {
+
+}
+
+.hud {
+	float: right;
+	border-style: solid;
+	border-radius: 5%;
+	overflow: hidden;
+}
+
+.captured {
+	display: inline;
+}
+
+.voiceCommand {
+	color: white;
+	background-color: red;
+	border-radius: 5;
+	width: 100px;
+	height: 35px;
+	margin: 10px;
+}

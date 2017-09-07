@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './Algebra.css'
 
 const Algebra = (props) => {
 	var label = ""

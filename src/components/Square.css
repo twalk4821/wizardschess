@@ -1,0 +1,15 @@
+.square:nth-child(2n) {
+	background-color: blue;
+}
+
+.square:nth-child(2n+1) {
+	background-color: green;
+}
+
+.square.active {
+	background-color: white;
+}
+
+.white {
+	color: white;
+}

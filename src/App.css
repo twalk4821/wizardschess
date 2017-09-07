@@ -8,10 +8,13 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
+  background-image: url("https://t3.ftcdn.net/jpg/01/24/77/32/240_F_124773288_bmIx5Y8F1baiBLyGUbVXNt1EzZ6J0SQR.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 100px;
   padding: 20px;
-  color: white;
+  color: #d90000;
+  font-size: 20px;
 }
 
 .App-intro {

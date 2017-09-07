@@ -31,7 +31,6 @@ class App extends Component {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <h2>Wizards Chess</h2>
         </div>
         <Routes updatePlayerNames={this.updatePlayerNames} playerNames={this.state.playerNames}/>

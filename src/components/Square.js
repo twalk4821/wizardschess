@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import images from '../assets/images.js'
+import images from '../assets/images.js';
+import './Square.css'
 
 class Square extends Component {
 	constructor(props) {
