@@ -22,9 +22,6 @@ class Square extends Component {
 	}
 
 	render() {
-		if (this.props.piece) {
-			console.log("../assets/" + this.props.piece.color + this.props.piece.type + ".png")
-		}
 		var classes = this.state.active ? "square active " : "square " + (this.props.piece ? this.props.piece.color : "")
 		return (
 			<div className={classes} onClick={() => this.props.toggle(this)}>

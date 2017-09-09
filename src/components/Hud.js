@@ -40,12 +40,14 @@ class Hud extends Component {
 		}
 
 	startRecording(e) {
-		e.preventDefault()
+		
 		this.setState({
 			recording: true,
 			message: false
 		})
+		
 		this.recognition.start()
+
 		this.recognition.addEventListener('result', (e) => {
 			let last = e.results.length - 1;
 			let options = e.results[last]
@@ -56,9 +58,10 @@ class Hud extends Component {
 				}
 			}
 			this.setState({
-				message: "Command not recognized!"
+				message: `Command "${options[0].transcript}" not recognized`
 			})
-		});
+		}, { once: true });
+
 		this.recognition.onspeechend = function() {
   			this.recognition.stop();
   			this.setState({
@@ -88,11 +91,11 @@ class Hud extends Component {
 				{this.state.recording &&
 					<div>Listening...</div>
 				}
-				<h2>Turn: {this.props.turnNumber}</h2>
-				<h2>Captured Pieces:</h2>
+				<h4>Turn: {this.props.turnNumber}</h4>
+				<h4>Captured Pieces:</h4>
 				
 				<div>
-					<div>{this.props.playerNames.white + " (White)"}</div>
+					<div className="playerName">{this.props.playerNames.white + " (White)"}</div>
 					<ul>
 					{capturedWhite && capturedWhite["pawn"].length>0 &&
 
@@ -142,7 +145,7 @@ class Hud extends Component {
 					
 					</ul>
 					
-					<div>{this.props.playerNames.black + " (Black)"}</div>
+					<div className="playerName">{this.props.playerNames.black + " (Black)"}</div>
 					<ul>
 					{capturedBlack && capturedBlack["pawn"].length>0 &&
 						capturedBlack["pawn"].map((pawn) => (

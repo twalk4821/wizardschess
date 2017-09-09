@@ -2,10 +2,14 @@ h1,h2,h3,h4,h5 {
 
 }
 
+.hud h2 {
+	text-align: center;
+}
+
 .hud {
 	float: right;
 	border-style: solid;
-	border-radius: 5%;
+	border-radius: 10px;
 	overflow: hidden;
 }
 
@@ -17,7 +21,13 @@ h1,h2,h3,h4,h5 {
 	color: white;
 	background-color: red;
 	border-radius: 5;
-	width: 100px;
+	width: 200px;
 	height: 35px;
-	margin: 10px;
+	margin-top: 20px;
+	font-size: 18px
+}
+
+.playerName {
+	background-color: black;
+	color: white;
 }

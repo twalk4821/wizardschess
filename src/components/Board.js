@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import './Board.css'
+
 import Square from './Square.js'
 import Algebra from './Algebra.js'
 import Hud from '../components/Hud.js'
-
-import './Board.css'
 
 import chessBoard from '../classes/board.js'
 import Piece from '../classes/pieces.js'
@@ -31,10 +31,9 @@ class Board extends Component {
 		let simulatedBoard = this.state.board.copy()
 		if (this.isCheck(simulatedBoard)) {
 			this.isCheckmate() ?
-				console.log("checkmate!!!") :
-				console.log("check.") 
+				this.message.textContent = "Checkmate!!!" :
+				this.message.textContent = "Check.";
 		}	
-		console.log(this.state.board.capturedPieces)	
 	}
 
 	isCheckmate() {
@@ -118,13 +117,10 @@ class Board extends Component {
 		const location = command[2].split("");
 		let x = location[0].charCodeAt(0) - 65;
 		let y = parseInt(location[1])-1
-		console.log(livePieces)
 		for (let livePiece of livePieces[pieceType]) {
 			const square = <Square piece={livePiece} toggle={this.toggleActive} pos={{x:x, y:y}}/>
 			var val = this.move(livePiece, square)
-			console.log("hello",val)
 			if (val) {
-				console.log("moved")
 				return true
 			}
 		}
@@ -151,6 +147,7 @@ class Board extends Component {
 			simulatedBoard.simulateMove(piece, destination)
 			if (this.isCheck(simulatedBoard)) {
 				console.log("can't move into check")
+				this.message.textContent = "Can't move into check";
 				return false
 			}
 
@@ -166,11 +163,12 @@ class Board extends Component {
 			if (piece.type === "pawn") {
 				piece.hasMoved = true
 			}
-			console.log('returning true')
+			this.message.textContent = ""
 			return true	
 		}
 		else {
 			console.log("invalid move")
+			this.message.textContent = "Not a valid move.";
 			return false
 		}
 
@@ -204,11 +202,14 @@ class Board extends Component {
 			}
 		}
 		return (
+			<div>
+			<h2 ref={message=> {this.message = message }} className="message"></h2>
 			<div className="playArea">
 				<div className="board">
 					{Squares}
 				</div>
 				<Hud executeCommand={this.executeCommand} turn={this.props.turn} turnNumber={this.state.turnNumber} capturedPieces={this.state.board.capturedPieces} playerNames={this.props.playerNames}/>
+			</div>
 			</div>
 
 			
