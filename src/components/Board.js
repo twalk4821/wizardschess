@@ -45,12 +45,10 @@ class Board extends Component {
 				let piece = piecesOfType[i];
 				let moveset = piece.calculateMoveset(this.state.board)
 				for (var j = 0; j<moveset.length; j++) {
-					let move = moveset[j]
-					let simulatedBoard = this.state.board.copy()
-					simulatedBoard.simulateMove(piece, move)
-					if (!this.isCheck(simulatedBoard)) {
-						return false
-					}
+					let destination = moveset[j]
+					if (!this.movingIntoCheck(piece, destination)) {
+						return false;
+					}	
 				}
 			}
 		}
