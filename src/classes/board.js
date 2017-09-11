@@ -130,6 +130,7 @@ class Board {
 	}
 
 	copy() {
+		//copy method for simulating moves
 		const newGrid = [];
 		const newLivePieces = {
 						white: {
