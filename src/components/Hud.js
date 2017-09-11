@@ -45,7 +45,7 @@ class Hud extends Component {
 			recording: true,
 			message: false
 		})
-		
+
 		this.recognition.start()
 
 		this.recognition.addEventListener('result', (e) => {
@@ -91,7 +91,7 @@ class Hud extends Component {
 				{this.state.recording &&
 					<div>Listening...</div>
 				}
-				<h4>Turn: {this.props.turnNumber}</h4>
+				<h4>Turn: {this.props.turnCount}</h4>
 				<h4>Captured Pieces:</h4>
 				
 				<div>

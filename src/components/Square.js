@@ -16,6 +16,7 @@ class Square extends Component {
 				classes = "square active " + (this.props.piece ? this.props.piece.color : "")
 			}
 		}
+		
 		return (
 			<div className={classes} onClick={() => this.props.toggle(this)}>
 				{this.props.piece &&

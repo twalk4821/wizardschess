@@ -17,7 +17,7 @@ class Board extends Component {
 		this.state = {
 			board: board,
 			activeSquare: null,
-			turnNumber: 1
+			turnCount: 1
 		}
 
 		this.toggleActive = this.toggleActive.bind(this)
@@ -106,72 +106,69 @@ class Board extends Component {
 
 	executeCommand(command) {
 		command = command.split(" ");
+
 		const piece = command[0];
 		const pieceType = piece.charAt(0).toLowerCase() + piece.slice(1)
-		let playerColor = this.props.turn;
-		let livePieces = this.state.board.livePieces[playerColor];
+
+		const livePiecesForCurrentPlayer = this.state.board.livePieces[this.props.turn];
+
 		const location = command[2].split("");
-		let x = location[0].charCodeAt(0) - 65;
-		let y = parseInt(location[1])-1
-		for (let livePiece of livePieces[pieceType]) {
+		const x = location[0].charCodeAt(0) - 65;
+		const y = parseInt(location[1])-1
+
+		for (let livePiece of livePiecesForCurrentPlayer[pieceType]) {
 			const square = <Square piece={livePiece} toggle={this.toggleActive} pos={{x:x, y:y}}/>
-			var val = this.move(livePiece, square)
-			if (val) {
-				return true
-			}
+			if (this.move(livePiece, square)) return true;
 		}
-		console.log("invalid command")
-		return false
+
+		return false;
 	}
 
 	move(piece, square) {
-		if (this.state.activeSquare) {
-			this.state.activeSquare.setState({
-				active: null
-			})
-		}
-		
-		this.setState({
-			activeSquare: null
-		})
+		this.setActiveSquare(null)
+
 		const moveset = piece.calculateMoveset(this.state.board)
 		const destination = square.props.pos
-		const board = this.state.board
+
 		if (this.destinationInMoveset(destination, moveset)) {
-			//disallow moving into check
-			let simulatedBoard = board.copy()
-			simulatedBoard.simulateMove(piece, destination)
-			if (this.isCheck(simulatedBoard)) {
-				console.log("can't move into check")
+
+			if (this.movingIntoCheck(piece, destination)) {
 				this.message.textContent = "Can't move into check";
 				return false
 			}
 
-			board.move(piece, destination) 
+			this.state.board.move(piece, destination) 
 
 			if (this.props.turn === "black") {
-				this.setState({
-					turnNumber: this.state.turnNumber + 1
-				})
+				this.incrementTurnCount()
 			}
 			this.props.nextTurn()
 
 			if (piece.type === "pawn") {
 				piece.hasMoved = true
 			}
+
 			this.message.textContent = ""
 			return true	
 		}
 		else {
-			console.log("invalid move")
 			this.message.textContent = "Not a valid move.";
 			return false
 		}
 
 	}
 
-	simulateMove(piece, x, y) {
+	movingIntoCheck(piece, destination) {
+		const simulatedBoard = this.state.board.copy()
+		simulatedBoard.simulateMove(piece, destination)
 
+		return this.isCheck(simulatedBoard) ? true : false
+	}
+
+	incrementTurnCount() {
+		this.setState({
+			turnCount: this.state.turnCount + 1
+		})
 	}
 
 	destinationInMoveset(destination, moveset) {
@@ -184,7 +181,6 @@ class Board extends Component {
 
 
 	render() {
-		console.log(this.state.activeSquare)
 		var Squares = [];
 		for (var i = 7; i>=-1; i--) {
 			for (var j = -1; j < 8; j++) {
@@ -205,7 +201,7 @@ class Board extends Component {
 				<div className="board">
 					{Squares}
 				</div>
-				<Hud executeCommand={this.executeCommand} turn={this.props.turn} turnNumber={this.state.turnNumber} capturedPieces={this.state.board.capturedPieces} playerNames={this.props.playerNames}/>
+				<Hud executeCommand={this.executeCommand} turn={this.props.turn} turnCount={this.state.turnCount} capturedPieces={this.state.board.capturedPieces} playerNames={this.props.playerNames}/>
 			</div>
 			</div>
 
