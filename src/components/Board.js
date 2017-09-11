@@ -84,19 +84,15 @@ class Board extends Component {
 		if (!activeSquare) {
 			if (!square.props.piece) return;
 			if (!(square.props.piece.color === this.props.turn)) return;
-			square.toggleActive()
 			this.setActiveSquare(square)
 		} else {
 			if (square.isEqualTo(activeSquare)) {
-				square.toggleActive()
 				this.setActiveSquare(null)
 			} else {
 				if (!square.props.piece || square.props.piece.color !== activeSquare.props.piece.color) {
 					this.move(activeSquare.props.piece, square)
 				} else if (square.props.piece.color === activeSquare.props.piece.color) {
-					activeSquare.toggleActive()
 					this.setActiveSquare(square)
-					square.toggleActive()
 				}
 			}
 		}
@@ -188,6 +184,7 @@ class Board extends Component {
 
 
 	render() {
+		console.log(this.state.activeSquare)
 		var Squares = [];
 		for (var i = 7; i>=-1; i--) {
 			for (var j = -1; j < 8; j++) {
@@ -195,7 +192,7 @@ class Board extends Component {
 					const square = <Algebra pos= {{x:j, y:i}} />
 					Squares.push(square)
 				} else {
-					const square = <Square piece={this.state.board.getPieceAtLocation(j, i)} toggle={this.toggleActive} pos={{x:j, y:i}}/>
+					const square = <Square piece={this.state.board.getPieceAtLocation(j, i)} toggle={this.toggleActive} pos={{x:j, y:i}} activeSquare={this.state.activeSquare}/>
 					Squares.push(square);
 				}
 				
