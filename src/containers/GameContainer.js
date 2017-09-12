@@ -23,7 +23,7 @@ class GameContainer extends Component {
 			<div className="gameContainer">
 
 				<h2>{playerName + "'s turn."}</h2>
-				<Board nextTurn = {this.nextTurn} turn = {this.state.turn} playerNames={this.props.playerNames}/>
+				<Board ref ="board" nextTurn = {this.nextTurn} turn = {this.state.turn} playerNames={this.props.playerNames}/>
 			</div>
 		)
 	}

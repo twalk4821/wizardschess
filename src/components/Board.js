@@ -28,13 +28,27 @@ class Board extends Component {
 		this.executeCommand = this.executeCommand.bind(this)
 	}
 
+	componentDidMount() {
+		this.updateAvailableMoves()
+	}
+
 	componentDidUpdate() {
 		let simulatedBoard = this.state.board.copy()
 		if (this.isCheck(simulatedBoard)) {
 			this.isCheckmate() ?
 				this.message.textContent = "Checkmate!!!" :
 				this.message.textContent = "Check.";
-		}	
+		}
+		this.updateAvailableMoves()	
+	}
+
+	updateAvailableMoves() {
+		for (let pieceType in this.state.board.livePieces[this.props.turn]) {
+			for (let livePiece of this.state.board.livePieces[this.props.turn][pieceType]) {
+				livePiece.availableMoves = livePiece.calculateMoveset(this.state.board)
+			}
+		}
+		console.log(this.state.board.livePieces)
 	}
 
 	isCheckmate() {
@@ -55,6 +69,8 @@ class Board extends Component {
 		}
 		return true
 	}
+
+
 
 	isCheck(simulatedBoard) {
 		const playerColor = this.props.turn
@@ -121,7 +137,7 @@ class Board extends Component {
 
 		const validTargets = []
 		for (let livePiece of livePiecesForCurrentPlayer[pieceType]) {
-			const moveset = livePiece.calculateMoveset(this.state.board)
+			const moveset = livePiece.availableMoves
 			console.log(moveset)
 			if (this.destinationInMoveset(destination, moveset) &&
 				!this.movingIntoCheck(livePiece, destination)) {
@@ -142,8 +158,7 @@ class Board extends Component {
 	}
 
 	move(piece, destination) {
-		console.log(piece, destination)
-		const moveset = piece.calculateMoveset(this.state.board)
+		const moveset = piece.availableMoves
 		if (this.destinationInMoveset(destination, moveset)) {
 
 			if (this.movingIntoCheck(piece, destination)) {
@@ -158,9 +173,7 @@ class Board extends Component {
 			}
 			this.props.nextTurn()
 
-			if (piece.type === "pawn") {
-				piece.hasMoved = true
-			}
+			piece.hasMoved = true;
 
 			this.setActiveSquare(null)
 			this.message.textContent = ""

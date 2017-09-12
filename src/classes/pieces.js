@@ -5,7 +5,12 @@ class Piece {
 		this.color = color;
 		this.range = 1
 		this.moveset = ["up", "down", "left", "right"]
-		this.pos = []
+		this.availableMoves = [];
+		this.pos = {
+			x: null,
+			y: null
+		}
+		this.hasMoved = false
 	}
 
 	calculateMoveset(board) {
@@ -105,7 +110,6 @@ class Pawn extends Piece {
 		this.color === "white" ? 
 			this.moveset = ["up", "double-up", "up-right", "up-left"] :
 			this.moveset = ["down", "double-down", "down-right", "down-left"]
-		this.hasMoved = false
 	}
 
 	calculateMoveset(board) {
