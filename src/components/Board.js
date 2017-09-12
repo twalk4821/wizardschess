@@ -17,6 +17,7 @@ class Board extends Component {
 		this.state = {
 			board: board,
 			activeSquare: null,
+			activeMoveset: null,
 			turnCount: 1
 		}
 
@@ -88,7 +89,7 @@ class Board extends Component {
 				this.setActiveSquare(null)
 			} else {
 				if (!square.props.piece || square.props.piece.color !== activeSquare.props.piece.color) {
-					this.move(activeSquare.props.piece, square)
+					this.move(activeSquare.props.piece, square.props.pos)
 				} else if (square.props.piece.color === activeSquare.props.piece.color) {
 					this.setActiveSquare(square)
 				}
@@ -98,8 +99,10 @@ class Board extends Component {
 		
 	setActiveSquare(square) {
 		this.setState({
-			activeSquare: square
+			activeSquare: square,
+			activeMoveset: square ? square.props.piece.calculateMoveset(this.state.board) : []
 		})
+
 	}
 
 	executeCommand(command) {
@@ -111,23 +114,36 @@ class Board extends Component {
 		const livePiecesForCurrentPlayer = this.state.board.livePieces[this.props.turn];
 
 		const location = command[2].split("");
-		const x = location[0].charCodeAt(0) - 65;
-		const y = parseInt(location[1])-1
-
-		for (let livePiece of livePiecesForCurrentPlayer[pieceType]) {
-			const square = <Square piece={livePiece} toggle={this.toggleActive} pos={{x:x, y:y}}/>
-			if (this.move(livePiece, square)) return true;
+		const destination = {
+			x: location[0].charCodeAt(0) - 65,
+			y: parseInt(location[1])-1
 		}
 
-		return false;
+		const validTargets = []
+		for (let livePiece of livePiecesForCurrentPlayer[pieceType]) {
+			const moveset = livePiece.calculateMoveset(this.state.board)
+			console.log(moveset)
+			if (this.destinationInMoveset(destination, moveset) &&
+				!this.movingIntoCheck(livePiece, destination)) {
+				console.log("pushing valid target: ", livePiece)
+				validTargets.push(livePiece)
+			}
+		}
+
+		if (validTargets.length === 1) {
+			return this.move(validTargets[0], destination)
+		} else if (validTargets.length === 0) {
+			this.message.textContent = "That command is not associated with any available moves.";
+			return false
+		} else {
+			this.message.textContent = "That command is associated with multiple targets. Please move manually for now.";
+			return false
+		}
 	}
 
-	move(piece, square) {
-		this.setActiveSquare(null)
-
+	move(piece, destination) {
+		console.log(piece, destination)
 		const moveset = piece.calculateMoveset(this.state.board)
-		const destination = square.props.pos
-
 		if (this.destinationInMoveset(destination, moveset)) {
 
 			if (this.movingIntoCheck(piece, destination)) {
@@ -146,13 +162,16 @@ class Board extends Component {
 				piece.hasMoved = true
 			}
 
+			this.setActiveSquare(null)
 			this.message.textContent = ""
 			return true	
 		}
 		else {
 			this.message.textContent = "Not a valid move.";
+			this.setActiveSquare(null)
 			return false
 		}
+
 
 	}
 
@@ -171,7 +190,7 @@ class Board extends Component {
 
 	destinationInMoveset(destination, moveset) {
 		for (var i = 0; i<moveset.length; i++) {
-			const move = moveset[i];
+			const move = moveset[i]
 			if (destination.x === move.x && destination.y === move.y) return true
 		}
 		return false
