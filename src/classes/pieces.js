@@ -20,7 +20,7 @@ class Piece {
 				const move = this.moveset[i];
 				
 				const movementVector = Piece.moveAsVector(move);
-				const positionVector = Vector.add(new Vector(this.pos[0], this.pos[1]), Vector.times(movementVector, j))
+				const positionVector = Vector.add(new Vector(this.pos.x, this.pos.y), Vector.times(movementVector, j))
 				const newLocation = Vector.add(positionVector, movementVector)
 				if (!Piece.onBoard(newLocation)) {
 					break;
@@ -116,7 +116,7 @@ class Pawn extends Piece {
 		const moveset = [];
 		let forwardMove = this.moveset[0]
 		let movementVector = Piece.moveAsVector(forwardMove);
-		let positionVector = new Vector(this.pos[0], this.pos[1])
+		let positionVector = new Vector(this.pos.x, this.pos.y)
 		let newLocation = Vector.add(positionVector, movementVector)
 		
 		if (!board.getPieceAtLocation(newLocation.x, newLocation.y) && Piece.onBoard(newLocation)) {
@@ -129,7 +129,7 @@ class Pawn extends Piece {
 		if (!this.hasMoved) {
 			let doubleMove = this.moveset[1]
 			let movementVector = Piece.moveAsVector(doubleMove);
-			let positionVector = new Vector(this.pos[0], this.pos[1])
+			let positionVector = new Vector(this.pos.x, this.pos.y)
 			let newLocation = Vector.add(positionVector, movementVector)
 
 			if (!board.getPieceAtLocation(newLocation.x, newLocation.y)) {
@@ -179,7 +179,7 @@ class Knight extends Piece {
 		for (var i = 0; i<8; i++) {
 			const move = this.moveset[i];
 			const movementVector = Piece.moveAsVector(move);
-			const positionVector = new Vector(this.pos[0], this.pos[1])
+			const positionVector = new Vector(this.pos.x, this.pos.y)
 			const newLocation = Vector.add(positionVector, movementVector)
 			if (board.getPieceAtLocation(newLocation.x, newLocation.y)) {
 				let piece = board.getPieceAtLocation(newLocation.x, newLocation.y)

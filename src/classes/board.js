@@ -76,48 +76,102 @@ class Board {
 		for (var i = 0; i<8; i++) {
 			var row = [];
 			if (i===0) {
-				whitePieces.rook[0].pos = [0,0]
+				whitePieces.rook[0].pos = {
+					x: 0,
+					y: 0
+				}
 				row[0] = whitePieces.rook[0]
-				whitePieces.knight[0].pos = [1,0]
+				whitePieces.knight[0].pos = {
+					x: 1,
+					y: 0
+				}
 				row[1] = whitePieces.knight[0]
-				whitePieces.bishop[0].pos = [2,0]
+				whitePieces.bishop[0].pos = {
+					x: 2,
+					y: 0
+				}
 				row[2] = whitePieces.bishop[0]
-				whitePieces.queen[0].pos = [3,0]
+				whitePieces.queen[0].pos = {
+					x: 3,
+					y: 0
+				}
 				row[3] = whitePieces.queen[0]
-				whitePieces.king[0].pos = [4,0]
+				whitePieces.king[0].pos = {
+					x: 4,
+					y: 0
+				}
 				row[4] = whitePieces.king[0]
-				whitePieces.bishop[1].pos = [5,0]
+				whitePieces.bishop[1].pos = {
+					x: 5,
+					y: 0
+				}
 				row[5] = whitePieces.bishop[1]
-				whitePieces.knight[1].pos = [6,0]
+				whitePieces.knight[1].pos = {
+					x: 6,
+					y: 0
+				}
 				row[6] = whitePieces.knight[1]
-				whitePieces.rook[1].pos =[7,0]
+				whitePieces.rook[1].pos = {
+					x: 7,
+					y: 0
+				}
 				row[7] = whitePieces.rook[1]
 			} else if (i===1) {
 				for (var j = 0; j<8; j++) {
-					whitePieces.pawn[j].pos = [j,1]
+					whitePieces.pawn[j].pos = {
+					x: j,
+					y: 1
+				}
 					row[j] = whitePieces.pawn[j]
 				}
 			} else if (i === 6) {
 				for (var j = 0; j<8; j++) {
-					blackPieces.pawn[j].pos = [j,6]
+					blackPieces.pawn[j].pos = {
+					x: j,
+					y: 6
+				}
 					row[j] = blackPieces.pawn[j]
 				}
 			} else if (i === 7) {
-				blackPieces.rook[0].pos = [0,7]
+				blackPieces.rook[0].pos = {
+					x: 0,
+					y: 7
+				}
 				row[0] = blackPieces.rook[0]
-				blackPieces.knight[0].pos = [1,7]
+				blackPieces.knight[0].pos = {
+					x: 1,
+					y: 7
+				}
 				row[1] = blackPieces.knight[0]
-				blackPieces.bishop[0].pos = [2,7]
+				blackPieces.bishop[0].pos = {
+					x: 2,
+					y: 7
+				}
 				row[2] = blackPieces.bishop[0]
-				blackPieces.queen[0].pos = [3,7]
+				blackPieces.queen[0].pos = {
+					x: 3,
+					y: 7
+				}
 				row[3] = blackPieces.queen[0]
-				blackPieces.king[0].pos = [4,7]
+				blackPieces.king[0].pos = {
+					x: 4,
+					y: 7
+				}
 				row[4] = blackPieces.king[0]
-				blackPieces.bishop[1].pos = [5,7]
+				blackPieces.bishop[1].pos = {
+					x: 5,
+					y: 7
+				}
 				row[5] = blackPieces.bishop[1]
-				blackPieces.knight[1].pos = [6,7]
+				blackPieces.knight[1].pos = {
+					x: 6,
+					y: 7
+				}
 				row[6] = blackPieces.knight[1]
-				blackPieces.rook[1].pos =[7,7]
+				blackPieces.rook[1].pos = {
+					x: 7,
+					y: 7
+				}
 				row[7] = blackPieces.rook[1]
 			} else {
 				for (var j = 0; j<8; j++) {
@@ -130,6 +184,7 @@ class Board {
 	}
 
 	copy() {
+		//copy method for simulating moves
 		const newGrid = [];
 		const newLivePieces = {
 						white: {
@@ -183,24 +238,26 @@ class Board {
 
 	addPieceAtLocation(piece, x, y) {
 		this.grid[y][x] = piece;
-		piece.pos[0] = x;
-		piece.pos[1] = y;
+		piece.pos = {
+					x: x,
+					y: y
+				}
 	}
 
 	movePieceToLocation(piece, x, y) {
-		this.removePieceAtLocation(piece.pos[0], piece.pos[1]);
+		this.removePieceAtLocation(piece.pos.x, piece.pos.y);
 		this.addPieceAtLocation(piece, x, y)
 	}
 
 	move(piece, destination) {
-		this.removePieceAtLocation(piece.pos[0], piece.pos[1]);
+		this.removePieceAtLocation(piece.pos.x, piece.pos.y);
 		this.getPieceAtLocation(destination.x, destination.y) ?
 			this.capturePieceAtLocation(piece, destination.x, destination.y) :
 			this.addPieceAtLocation(piece, destination.x, destination.y)
 	}
 
 	simulateMove(piece, destination) {
-		this.removePieceAtLocation(piece.pos[0], piece.pos[1]);
+		this.removePieceAtLocation(piece.pos.x, piece.pos.y);
 		this.removeFromLivePieces(piece)
 		let simulatedPiece = Piece.makePiece(piece.type, piece.color)
 		this.addToLivePieces(simulatedPiece)
