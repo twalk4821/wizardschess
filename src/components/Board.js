@@ -40,19 +40,11 @@ class Board extends Component {
 		}
 		this.state.board.updateAvailableMoves(this.props.turn)
 		if (this.props.turn === "black") {
-			setTimeout(function() {
-				let aiMove = ai.getBestMove(this.state.board, 25);
-				this.move(aiMove.piece, aiMove.destination);
-			}.bind(this), 1000)
+			let aiMove = ai.getBestMove(this.state.board, 2);
+			this.move(aiMove.piece, aiMove.destination);
+
 		}	
 	}
-
-	
-	
-
-
-
-
 
 	toggleActive(square) {
 		let activeSquare = this.state.activeSquare

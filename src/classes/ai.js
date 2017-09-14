@@ -24,28 +24,50 @@ function getCurrentScore(board) {
 	return whiteScore - blackScore;
 }
 
-function getBestMove(board, N) {
-	let bestMove = {
-		piece: null,
-		destination: null,
-		score: Number.POSITIVE_INFINITY
-	}
+function getBestMove(board, N, turn = "black") {
+	let bestMove = null
 
-	for (let pieceType in board.livePieces["black"]) {
-		for (let piece of board.livePieces["black"][pieceType]) {
+	for (let pieceType in board.livePieces[turn]) {
+		for (let piece of board.livePieces[turn][pieceType]) {
 			const moveset = piece.availableMoves
 			for (let move of moveset) {
 				const simulatedBoard = board.copy();
 				simulatedBoard.simulateMove(piece, move);
-				if (simulatedBoard.isCheck("black")) continue; 
-				const minScore = getBestScoreForMove(simulatedBoard, N)
-				if (minScore < bestMove.score) {
+				if (simulatedBoard.isCheck(turn)) continue; 
+				const minScore = getBestScoreForMove(simulatedBoard, N, turn)
+				if (!bestMove) {
 					bestMove = {
 						piece: piece,
 						destination: move,
 						score: minScore
 					}
+				} else if (minScore === bestMove.score) {
+					let rand = Math.random();
+					if (rand >= .5) {
+						bestMove = {
+							piece: piece,
+							destination: move,
+							score: minScore
+						}
+					}
+				} else if (turn === "black") {
+					if (minScore < bestMove.score) {
+						bestMove = {
+							piece: piece,
+							destination: move,
+							score: minScore
+						}
+					}	
+				} else {
+					if (minScore > bestMove.score) {
+						bestMove = {
+							piece: piece,
+							destination: move,
+							score: minScore
+						}
+					}
 				}
+				
 			}
 		}
 	}
@@ -53,60 +75,16 @@ function getBestMove(board, N) {
 	return bestMove;
 }
 
-function getBestScoreForMove(board, N) {
-	let turn = "white";
+function getBestScoreForMove(board, N, turn) {
 	let totalScore = getCurrentScore(board);
 
-	function getNextMove() {
-		let currentBestMove = null;
-		for (let pieceType in board.livePieces[turn]) {
-			for (let piece of board.livePieces[turn][pieceType]) {
-				const moveset = piece.availableMoves
-				for (let move of moveset) {
-					const simulatedBoard = board.copy();
-					simulatedBoard.simulateMove(piece, move);
-					if (simulatedBoard.isCheck(turn)) continue; 
-					const score = getCurrentScore(simulatedBoard);
-					if (!currentBestMove) {
-						currentBestMove = {
-							piece: piece,
-							destination: move,
-							score: score
-						}
-					} else {
-						if (turn === "white") {
-							if (score > currentBestMove.score) {
-								currentBestMove = {
-									piece: piece,
-									destination: move,
-									score: score
-								}
-							}
-						} else {
-							if (score < currentBestMove.score) {
-								currentBestMove = {
-									piece: piece,
-									destination: move,
-									score: score
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		return currentBestMove;
-	}
-
 	while (N>0) {
-		board.updateAvailableMoves(turn);
-		console.log(board)
-		let nextMove = getNextMove();
+		turn === "white" ? turn = "black" : turn = "white";
+		board.updateAvailableMoves(turn)
+		let nextMove = getBestMove(board, N-1, turn);
 		if (!nextMove) break;
 		board.simulateMove(nextMove.piece, nextMove.destination);
 		totalScore += getCurrentScore(board)
-		turn === "white" ? turn = "black" : turn = "white";
 		N--;
 	}
 
