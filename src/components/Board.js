@@ -7,6 +7,7 @@ import Hud from '../components/Hud.js'
 
 import chessBoard from '../classes/board.js'
 import Piece from '../classes/pieces.js'
+import ai from '../classes/ai.js'
 
 class Board extends Component {
 	constructor(props) {
@@ -23,75 +24,35 @@ class Board extends Component {
 
 		this.toggleActive = this.toggleActive.bind(this)
 		this.setActiveSquare = this.setActiveSquare.bind(this)
-		this.isCheck = this.isCheck.bind(this)
-		this.isCheckmate = this.isCheckmate.bind(this)
 		this.executeCommand = this.executeCommand.bind(this)
 	}
 
 	componentDidMount() {
-		this.updateAvailableMoves()
+		this.state.board.updateAvailableMoves()
 	}
 
 	componentDidUpdate() {
 		let simulatedBoard = this.state.board.copy()
-		if (this.isCheck(simulatedBoard)) {
-			this.isCheckmate() ?
+		if (this.state.board.isCheck(this.props.turn)) {
+			this.state.board.isCheckmate(this.props.turn) ?
 				this.message.textContent = "Checkmate!!!" :
 				this.message.textContent = "Check.";
 		}
-		this.updateAvailableMoves()	
+		this.state.board.updateAvailableMoves(this.props.turn)
+		if (this.props.turn === "black") {
+			setTimeout(function() {
+				let aiMove = ai.getBestMove(this.state.board, 25);
+				this.move(aiMove.piece, aiMove.destination);
+			}.bind(this), 1000)
+		}	
 	}
 
-	updateAvailableMoves() {
-		for (let pieceType in this.state.board.livePieces[this.props.turn]) {
-			for (let livePiece of this.state.board.livePieces[this.props.turn][pieceType]) {
-				livePiece.availableMoves = livePiece.calculateMoveset(this.state.board)
-			}
-		}
-		console.log(this.state.board.livePieces)
-	}
-
-	isCheckmate() {
-		let playerColor = this.props.turn;
-		let livePieces = this.state.board.livePieces[playerColor];
-		for (let type in livePieces) {
-			let piecesOfType = livePieces[type]
-			for (var i = 0; i<piecesOfType.length; i++) {
-				let piece = piecesOfType[i];
-				let moveset = piece.calculateMoveset(this.state.board)
-				for (var j = 0; j<moveset.length; j++) {
-					let destination = moveset[j]
-					if (!this.movingIntoCheck(piece, destination)) {
-						return false;
-					}	
-				}
-			}
-		}
-		return true
-	}
+	
+	
 
 
 
-	isCheck(simulatedBoard) {
-		const playerColor = this.props.turn
-		const opponentColor = this.props.turn === "white" ? "black" : "white"
-		const king = simulatedBoard.livePieces[playerColor].king[0]
-		const kingsPosition = {
-			x: king.pos[0],
-			y: king.pos[1]
-		}
 
-		const opponentPieces = simulatedBoard.livePieces[opponentColor]
-		for (let type in opponentPieces) {
-			let piecesOfType = opponentPieces[type];
-			for (var i = 0; i< piecesOfType.length; i++) {
-				const piece = piecesOfType[i];
-				const moveset = piece.calculateMoveset(simulatedBoard)
-				if (this.destinationInMoveset(kingsPosition, moveset)) return true;
-			}
-		}
-		return false;
-	}
 
 	toggleActive(square) {
 		let activeSquare = this.state.activeSquare
@@ -159,9 +120,9 @@ class Board extends Component {
 
 	move(piece, destination) {
 		const moveset = piece.availableMoves
-		if (this.destinationInMoveset(destination, moveset)) {
+		if (this.state.board.destinationInMoveset(destination, moveset)) {
 
-			if (this.movingIntoCheck(piece, destination)) {
+			if (this.state.board.movingIntoCheck(piece, destination, this.props.turn)) {
 				this.message.textContent = "Can't move into check";
 				return false
 			}
@@ -188,12 +149,7 @@ class Board extends Component {
 
 	}
 
-	movingIntoCheck(piece, destination) {
-		const simulatedBoard = this.state.board.copy()
-		simulatedBoard.simulateMove(piece, destination)
 
-		return this.isCheck(simulatedBoard) ? true : false
-	}
 
 	incrementTurnCount() {
 		this.setState({
@@ -201,13 +157,7 @@ class Board extends Component {
 		})
 	}
 
-	destinationInMoveset(destination, moveset) {
-		for (var i = 0; i<moveset.length; i++) {
-			const move = moveset[i]
-			if (destination.x === move.x && destination.y === move.y) return true
-		}
-		return false
-	}
+
 
 
 	render() {

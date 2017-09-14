@@ -292,8 +292,71 @@ class Board {
 		}
 	}
 
+	updateAvailableMoves(turn) {
+		for (let pieceType in this.livePieces[turn]) {
+			for (let livePiece of this.livePieces[turn][pieceType]) {
+				livePiece.availableMoves = livePiece.calculateMoveset(this)
+			}
+		}
+	}
+
 	static onBoard(square) {
 		return square.pos.x < 8 && square.pos.x > -1 && square.pos.y < 8 && square.pos.y > -1
+	}
+
+	isCheckmate(turn) {
+		let livePieces = this.livePieces[turn];
+		for (let type in livePieces) {
+			let piecesOfType = livePieces[type]
+			for (var i = 0; i<piecesOfType.length; i++) {
+				let piece = piecesOfType[i];
+				let moveset = piece.calculateMoveset(this)
+				for (var j = 0; j<moveset.length; j++) {
+					let destination = moveset[j]
+					if (!this.movingIntoCheck(piece, destination, turn)) {
+						return false;
+					}	
+				}
+			}
+		}
+		return true
+	}
+
+	movingIntoCheck(piece, destination, turn) {
+		const simulatedBoard = this.copy()
+		simulatedBoard.simulateMove(piece, destination)
+
+		return simulatedBoard.isCheck(turn) ? true : false
+	}
+
+	isCheck(turn) {
+
+		const opponentColor = turn === "white" ? "black" : "white"
+		const king = this.livePieces[turn].king[0]
+		if (!king) return;
+		const kingsPosition = {
+			x: king.pos.x,
+			y: king.pos.y
+		}
+
+		const opponentPieces = this.livePieces[opponentColor]
+		for (let type in opponentPieces) {
+			let piecesOfType = opponentPieces[type];
+			for (var i = 0; i< piecesOfType.length; i++) {
+				const piece = piecesOfType[i];
+				const moveset = piece.calculateMoveset(this)
+				if (this.destinationInMoveset(kingsPosition, moveset)) return true;
+			}
+		}
+		return false;
+	}
+
+	destinationInMoveset(destination, moveset) {
+		for (var i = 0; i<moveset.length; i++) {
+			const move = moveset[i]
+			if (destination.x === move.x && destination.y === move.y) return true
+		}
+		return false
 	}
 }
 
