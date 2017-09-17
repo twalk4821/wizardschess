@@ -44,8 +44,10 @@ class HomeContainer extends Component {
 		return (
 			<div className="homeContainer"> 
 
+			<div className="App-header">
+			  <h2>Wizards Chess</h2>
+			</div>
 
-			
 			{this.state.step === 1 &&
 				<div>
 					<h1>Enter Username for White Player:</h1>

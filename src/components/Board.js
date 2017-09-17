@@ -92,8 +92,8 @@ class Board extends Component {
 		for (let livePiece of livePiecesForCurrentPlayer[pieceType]) {
 			const moveset = livePiece.availableMoves
 			console.log(moveset)
-			if (this.destinationInMoveset(destination, moveset) &&
-				!this.movingIntoCheck(livePiece, destination)) {
+			if (this.state.board.destinationInMoveset(destination, moveset) &&
+				!this.state.board.movingIntoCheck(livePiece, destination)) {
 				console.log("pushing valid target: ", livePiece)
 				validTargets.push(livePiece)
 			}
