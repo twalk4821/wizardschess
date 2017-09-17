@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import HomeContainer from './containers/HomeContainer.js'
 import GameContainer from './containers/GameContainer.js'
-{/*
 import SingleContainer from './containers/SingleContainer.js'
+{/*
 import LocalContainer from './containers/LocalContainer.js'
 import MultiContainer from './containers/MultiContainer.js'
 */}
@@ -16,11 +16,11 @@ export default (props) => (
 	  )} />
   
 
-	  {/*  TODO: add additional routes
 	  <Route path="/single" exact render={() => (
 	  	<SingleContainer updatePlayerNames={props.updatePlayerNames} />
 	  )}/>
 
+	  {/*  TODO: add additional routes
 	  <Route path="/local" exact render={() => (
 	  	<HomeContainer updatePlayerNames={props.updatePlayerNames} />
 	  )}/>
