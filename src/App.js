@@ -33,7 +33,7 @@ class App extends Component {
         <div className="App-header">
           <h2>Wizards Chess</h2>
         </div>
-        <Routes updatePlayerNames={this.updatePlayerNames} playerNames={this.state.playerNames}/>
+        <Routes updatePlayerNames={this.updatePlayerNames} playerNames={this.state.playerNames}/>™€
       </div>
     );
   }

@@ -43,6 +43,9 @@ class HomeContainer extends Component {
 	render() {
 		return (
 			<div className="homeContainer"> 
+
+
+			
 			{this.state.step === 1 &&
 				<div>
 					<h1>Enter Username for White Player:</h1>
