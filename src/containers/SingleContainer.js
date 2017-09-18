@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-// import { Paper } from 'material-ui/Paper';
 import Paper from '../components/paperCard.js';
 import RaisedButton from 'material-ui/RaisedButton'; 
+
+import PropTypes from 'prop-types'
 
 class SingleContainer extends Component {
 	constructor(props) {
@@ -31,7 +32,6 @@ class SingleContainer extends Component {
   	})
   }
 	handleChange(e, color) {
-		console.log(e, color)
 		switch (color) {
 			case "black":
 				this.setState({
@@ -42,17 +42,20 @@ class SingleContainer extends Component {
 				this.setState({
 					white: e.target.value
 				})
+				break;
 			default:
 				break;
 		}	
 	}
 
 	handleSubmit() {
-		let names = {
-        white: this.state.white,
-        black: this.state.black
-      };
+		const names = {
+	        white: this.state.white,
+	        black: this.state.black
+	      };
+
 		this.props.updatePlayerNames(names);
+
 		this.setState({
 			redirect: true
 		})
@@ -109,11 +112,8 @@ class SingleContainer extends Component {
 	}
 }
 
+SingleContainer.propTypes = {
+	updatePlayerNames: PropTypes.func.isRequired
+}
+
 export default SingleContainer;
-			  	//   <h2>Player 1: 
-			   //  	  <input className="inputName" value={this.state.white} onChange={(e) => {this.handleChange(e, "white")}} />
-		    // 	  </h2>
-		    
-	    	//   <h2> Player 2:
-				  // 	<input className="inputName" value={this.state.black} onChange={(e) => {this.handleChange(e, "black")}} /> 
-			  	// </h2>

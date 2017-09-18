@@ -1,5 +1,4 @@
 import Piece from './pieces.js'
-import Vector from './math.js'
 
 class Board {
 	constructor() {
@@ -55,7 +54,7 @@ class Board {
 		whitePieces.queen.push(Piece.makePiece("queen", "white"))
 		whitePieces.king.push(Piece.makePiece("king", "white"))
 		
-		for (var i=0; i<8; i++) {
+		for (let i=0; i<8; i++) {
 			whitePieces.pawn.push(Piece.makePiece("pawn", "white"))
 		}
 
@@ -69,11 +68,11 @@ class Board {
 		blackPieces.queen.push(Piece.makePiece("queen", "black"))
 		blackPieces.king.push(Piece.makePiece("king", "black"))
 		
-		for (var i=0; i<8; i++) {
+		for (let i=0; i<8; i++) {
 			blackPieces.pawn.push(Piece.makePiece("pawn", "black"))
 		}
 
-		for (var i = 0; i<8; i++) {
+		for (let i = 0; i<8; i++) {
 			var row = [];
 			if (i===0) {
 				whitePieces.rook[0].pos = {
@@ -117,7 +116,7 @@ class Board {
 				}
 				row[7] = whitePieces.rook[1]
 			} else if (i===1) {
-				for (var j = 0; j<8; j++) {
+				for (let j = 0; j<8; j++) {
 					whitePieces.pawn[j].pos = {
 					x: j,
 					y: 1
@@ -125,7 +124,7 @@ class Board {
 					row[j] = whitePieces.pawn[j]
 				}
 			} else if (i === 6) {
-				for (var j = 0; j<8; j++) {
+				for (let j = 0; j<8; j++) {
 					blackPieces.pawn[j].pos = {
 					x: j,
 					y: 6
@@ -174,7 +173,7 @@ class Board {
 				}
 				row[7] = blackPieces.rook[1]
 			} else {
-				for (var j = 0; j<8; j++) {
+				for (let j = 0; j<8; j++) {
 					row[j] = null
 				}
 			}
@@ -237,6 +236,9 @@ class Board {
 	}
 
 	addPieceAtLocation(piece, x, y) {
+		if(!this.grid[y]) {
+			throw new Error("cannot set (" + x + "," + y + ") for piece: " + piece.type)
+		} 
 		this.grid[y][x] = piece;
 		piece.pos = {
 					x: x,

@@ -99,6 +99,8 @@ class Piece {
 				return new Vector(-2, 1)
 			case "knight-8":
 				return new Vector(-1, 2)
+			default:
+				return false
 		}
 	}
 }

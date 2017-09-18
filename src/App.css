@@ -27,9 +27,6 @@
   to { transform: rotate(360deg); }
 }
 
-.topLayer {
-  z-index: 8888;
-  /*background-color: red;*/
-  /*width: 2000px;*/
-  /*height: */
+h2 {
+  padding: 5px;
 }

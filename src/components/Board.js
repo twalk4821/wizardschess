@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import './Board.css'
 
+import PropTypes from 'prop-types'
+
 import Square from './Square.js'
 import Algebra from './Algebra.js'
 import Hud from '../components/Hud.js'
 
 import chessBoard from '../classes/board.js'
-import Piece from '../classes/pieces.js'
 import ai from '../classes/ai.js'
 
 class Board extends Component {
@@ -19,7 +20,8 @@ class Board extends Component {
 			board: board,
 			activeSquare: null,
 			activeMoveset: null,
-			turnCount: 1
+			turnCount: 1,
+			lastMove: null
 		}
 
 		this.toggleActive = this.toggleActive.bind(this)
@@ -28,21 +30,21 @@ class Board extends Component {
 	}
 
 	componentDidMount() {
-		this.state.board.updateAvailableMoves()
+		this.state.board.updateAvailableMoves("white")
 	}
 
 	componentDidUpdate() {
-		let simulatedBoard = this.state.board.copy()
 		if (this.state.board.isCheck(this.props.turn)) {
 			this.state.board.isCheckmate(this.props.turn) ?
 				this.message.textContent = "Checkmate!!!" :
 				this.message.textContent = "Check.";
 		}
+
 		this.state.board.updateAvailableMoves(this.props.turn)
+
 		if (this.props.turn === "black") {
 			let aiMove = ai.getBestMove(this.state.board, 2);
-			this.move(aiMove.piece, aiMove.destination);
-
+			this.move(aiMove.piece, aiMove.destination);			
 		}	
 	}
 
@@ -85,16 +87,14 @@ class Board extends Component {
 		const location = command[2].split("");
 		const destination = {
 			x: location[0].charCodeAt(0) - 65,
-			y: parseInt(location[1])-1
-		}
+			y: parseInt(location[1], 10)-1
+		};
 
 		const validTargets = []
 		for (let livePiece of livePiecesForCurrentPlayer[pieceType]) {
 			const moveset = livePiece.availableMoves
-			console.log(moveset)
 			if (this.state.board.destinationInMoveset(destination, moveset) &&
-				!this.state.board.movingIntoCheck(livePiece, destination)) {
-				console.log("pushing valid target: ", livePiece)
+				!this.state.board.movingIntoCheck(livePiece, destination, this.props.turn)) {
 				validTargets.push(livePiece)
 			}
 		}
@@ -130,6 +130,9 @@ class Board extends Component {
 
 			this.setActiveSquare(null)
 			this.message.textContent = ""
+			this.setState({
+				lastMove: [piece, destination]
+			})
 			return true	
 		}
 		else {
@@ -157,10 +160,10 @@ class Board extends Component {
 		for (var i = 7; i>=-1; i--) {
 			for (var j = -1; j < 8; j++) {
 				if (i === -1 || j === -1) {
-					const square = <Algebra pos= {{x:j, y:i}} />
+					const square = <Algebra pos= {{x:j, y:i}} key={j + "," + i}/>
 					Squares.push(square)
 				} else {
-					const square = <Square piece={this.state.board.getPieceAtLocation(j, i)} toggle={this.toggleActive} pos={{x:j, y:i}} activeSquare={this.state.activeSquare}/>
+					const square = <Square piece={this.state.board.getPieceAtLocation(j, i)} toggle={this.toggleActive} pos={{x:j, y:i}} activeSquare={this.state.activeSquare} key={j + "," + i} />
 					Squares.push(square);
 				}
 				
@@ -168,18 +171,31 @@ class Board extends Component {
 		}
 		return (
 			<div>
-			<h2 ref={message=> {this.message = message }} className="message"></h2>
+			<h2 ref={message=> {this.message = message }} className="message"> </h2>
 			<div className="playArea">
 				<div className="board">
 					{Squares}
 				</div>
-				<Hud executeCommand={this.executeCommand} turn={this.props.turn} turnCount={this.state.turnCount} capturedPieces={this.state.board.capturedPieces} playerNames={this.props.playerNames}/>
+				<Hud 
+				executeCommand={this.executeCommand} 
+				turn={this.props.turn} 
+				turnCount={this.state.turnCount} 
+				capturedPieces={this.state.board.capturedPieces} 
+				playerNames={this.props.playerNames}
+				lastMove={this.state.lastMove}
+				/>
 			</div>
 			</div>
 
 			
 		)
 	}
+}
+
+Board.propTypes = {
+	playerNames: PropTypes.objectOf(PropTypes.string).isRequired,
+	turn: PropTypes.oneOf(['white', 'black']).isRequired,
+	nextTurn: PropTypes.func
 }
 
 export default Board

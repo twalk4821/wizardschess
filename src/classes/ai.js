@@ -33,7 +33,12 @@ function getBestMove(board, N, turn = "black") {
 			for (let move of moveset) {
 				const simulatedBoard = board.copy();
 				simulatedBoard.simulateMove(piece, move);
-				if (simulatedBoard.isCheck(turn)) continue; 
+				if (simulatedBoard.isCheck(turn)) continue;
+				if (simulatedBoard.isCheckmate(turn === "white" ? "black" : "white")) return {
+						piece: piece,
+						destination: move,
+						score: 0
+					}  
 				const minScore = getBestScoreForMove(simulatedBoard, N, turn)
 				if (!bestMove) {
 					bestMove = {
