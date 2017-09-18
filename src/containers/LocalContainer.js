@@ -50,9 +50,10 @@ class LocalContainer extends Component {
 		  	</div>
 		  	<form onSubmit={this.handleSubmit} >
 	    	  <input className="inputName" value={this.state.white} onChange={(e) => {this.handleChange(e, "white")}} />
-			  	<input className="inputName" value={this.state.black} onChange={(e) => {this.handleChange(e, "black")}} /> 
-			  	<input className="submit" type="submit" /> 
-	   	  </form>
+			  <input className="inputName" value={this.state.black} onChange={(e) => {this.handleChange(e, "black")}} /> 
+			  <input className="submit" type="submit" /> 
+			  
+		   	</form>
 	    
 		    {this.state.redirect &&
 		    	<Redirect to="/game" />
