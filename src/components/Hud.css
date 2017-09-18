@@ -11,6 +11,9 @@ h1,h2,h3,h4,h5 {
 	border-style: solid;
 	border-radius: 10px;
 	overflow: hidden;
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
 }
 
 .captured {
@@ -20,11 +23,11 @@ h1,h2,h3,h4,h5 {
 .voiceCommand {
 	color: white;
 	background-color: red;
-	border-radius: 5;
-	width: 200px;
-	height: 35px;
+	border-radius: 100%;
+	width: 100px;
+	height: 100px;
 	margin-top: 20px;
-	font-size: 18px
+	font-size: 18px;
 }
 
 .playerName {

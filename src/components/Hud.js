@@ -7,7 +7,7 @@ class Hud extends Component {
 		super(props)
 		this.state = {
 			recording: false,
-			message: false
+			message: 'To enter a voice command, press the button to the right and speak a command such as: "Knight to C3."'
 		}
 		
 		this.startRecording = this.startRecording.bind(this)
@@ -77,115 +77,17 @@ class Hud extends Component {
 		
 		return (
 			<div className="hud">
-				<h2>Voice Command </h2>
-				<div className="br"></div>
-				{this.state.message &&
-					<div>{this.state.message}</div>
-				}
+				<h3>{this.props.playerNames[this.props.turn]}'s turn</h3>
 				{!this.state.recording && 
 					<form onSubmit={this.startRecording}>
 						<input className="voiceCommand" type="submit" value="Enter Command"/>
 					</form>
 				}
-
 				{this.state.recording &&
 					<div>Listening...</div>
 				}
-				<h4>Turn: {this.props.turnCount}</h4>
-				<h4>Captured Pieces:</h4>
-				
-				<div>
-					<div className="playerName">{this.props.playerNames.white + " (White)"}</div>
-					<ul>
-					{capturedWhite && capturedWhite["pawn"].length>0 &&
-
-						capturedWhite["pawn"].map((pawn) => (
-							<li className="captured">
-								<img src={images.whitepawn}/>
-							</li>
-						))
-						
-					}
-					{capturedWhite && capturedWhite["rook"].length>0 &&
-
-						capturedWhite["rook"].map((rook) => (
-							<li className="captured">
-								<img src={images.whiterook}/>
-							</li>
-						))
-						
-					}
-					{capturedWhite && capturedWhite["knight"].length>0 &&
-
-						capturedWhite["knight"].map((knight) => (
-							<li className="captured">
-								<img src={images.whiteknight}/>
-							</li>
-						))
-						
-					}
-					{capturedWhite && capturedWhite["bishop"].length>0 &&
-
-						capturedWhite["bishop"].map((bishop) => (
-							<li className="captured">
-								<img src={images.whitebishop}/>
-							</li>
-						))
-						
-					}
-					{capturedWhite && capturedWhite["queen"].length>0 &&
-
-						capturedWhite["queen"].map((queen) => (
-							<li className="captured">
-								<img src={images.whitequeen}/>
-							</li>
-						))
-						
-					}
-					
-					</ul>
-					
-					<div className="playerName">{this.props.playerNames.black + " (Black)"}</div>
-					<ul>
-					{capturedBlack && capturedBlack["pawn"].length>0 &&
-						capturedBlack["pawn"].map((pawn) => (
-							<li className="captured">
-								<img src={images.blackpawn}/>
-							</li>
-						))
-					}
-					{capturedBlack && capturedBlack["rook"].length>0 &&
-						capturedBlack["rook"].map((rook) => (
-							<li className="captured">
-								<img src={images.blackrook}/>
-							</li>
-						))
-					}
-					{capturedBlack && capturedBlack["knight"].length>0 &&
-						capturedBlack["knight"].map((knight) => (
-							<li className="captured">
-								<img src={images.blackknight}/>
-							</li>
-						))
-					}
-					{capturedBlack && capturedBlack["bishop"].length>0 &&
-						capturedBlack["bishop"].map((bishop) => (
-							<li className="captured">
-								<img src={images.blackbishop}/>
-							</li>
-						))
-					}
-					{capturedBlack && capturedBlack["queen"].length>0 &&
-						capturedBlack["queen"].map((queen) => (
-							<li className="captured">
-								<img src={images.blackqueen}/>
-							</li>
-						))
-					}
-					</ul>
-
-				</div>
-				
+				<div>{this.state.message}</div>
+				<h4>Turn: {this.props.turnCount}</h4>		
 			</div>
 		)
 	}
