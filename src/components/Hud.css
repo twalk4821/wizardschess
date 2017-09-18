@@ -31,3 +31,9 @@ h1,h2,h3,h4,h5 {
 	background-color: black;
 	color: white;
 }
+
+@media (max-width: 500px) {
+	.hud{
+		width: 100%;
+	}
+}
