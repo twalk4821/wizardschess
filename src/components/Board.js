@@ -186,6 +186,7 @@ class Board extends Component {
 				turnCount={this.state.turnCount} 
 				capturedPieces={this.state.board.capturedPieces} 
 				playerNames={this.props.playerNames}
+				gameMode={this.props.gameMode}
 				lastMove={this.state.lastMove}
 				/>
 			</div>
