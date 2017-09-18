@@ -1,5 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './Algebra.css'
+
+import PropTypes from 'prop-types'
 
 const Algebra = (props) => {
 	var label = ""
@@ -11,6 +13,10 @@ const Algebra = (props) => {
 			{label}
 		</div>
 	)
+}
+
+Algebra.propTypes = {
+	pos: PropTypes.objectOf(PropTypes.number).isRequired
 }
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import images from '../assets/images.js'
 import './Hud.css'
+
+import PropTypes from 'prop-types'
 
 class Hud extends Component {
 	constructor(props) {
@@ -72,16 +73,12 @@ class Hud extends Component {
 	}
 
 	convertMoveToAlgebraic() {
-
 		let piece = this.props.lastMove[0];
 		let destination = this.props.lastMove[1];
-		console.log(this.props.lastMove)
 		return `${piece.type} to ${String.fromCharCode(65 + destination.x)}${destination.y+1}`
 	}
 
 	render() {
-		let capturedWhite = this.props.capturedPieces["white"]
-		let capturedBlack = this.props.capturedPieces["black"]
 		
 		return (
 			<div className="hud">
@@ -108,6 +105,32 @@ class Hud extends Component {
 			</div>
 		)
 	}
+}
+
+Hud.propTypes = {
+	playerNames: PropTypes.objectOf(PropTypes.string).isRequired,
+	turn: PropTypes.oneOf(['white', 'black']).isRequired,
+	turnCount: PropTypes.number.isRequired,
+	executeCommand: PropTypes.func.isRequired,
+	lastMove: PropTypes.arrayOf(PropTypes.object),
+	capturedPieces: PropTypes.shape({
+		white: PropTypes.shape({
+			rook: PropTypes.array,
+			knight: PropTypes.array,
+			bishop: PropTypes.array,
+			queen: PropTypes.array,
+			king: PropTypes.array,
+			pawn: PropTypes.array
+		}),
+		black: PropTypes.shape({
+			rook: PropTypes.array,
+			knight: PropTypes.array,
+			bishop: PropTypes.array,
+			queen: PropTypes.array,
+			king: PropTypes.array,
+			pawn: PropTypes.array
+		})
+	})
 }
 
 export default Hud

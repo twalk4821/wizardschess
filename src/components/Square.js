@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import images from '../assets/images.js';
 import './Square.css'
 
+import PropTypes from 'prop-types'
+
 class Square extends Component {
 
 	isEqualTo(square) {
@@ -20,11 +22,23 @@ class Square extends Component {
 		return (
 			<div className={classes} onClick={() => this.props.toggle(this)}>
 				{this.props.piece &&
-					<img src={images[this.props.piece.color + this.props.piece.type]} height="50" width="50"/>
+					<img 
+					src={images[this.props.piece.color + this.props.piece.type]} 
+					alt={this.props.piece ? this.props.piece.type : ""}
+					height="50" 
+					width="50"
+					/>
 				}
 			</div>
 		)
 	}
+}
+
+Square.propTypes = {
+	piece: PropTypes.object,
+	activeSquare: PropTypes.object,
+	toggleActive: PropTypes.func,
+	pos: PropTypes.objectOf(PropTypes.number).isRequired
 }
 
 export default Square

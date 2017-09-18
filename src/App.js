@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-import GameContainer from './containers/GameContainer.js'
-import HomeContainer from './containers/HomeContainer.js'
 import Routes from './Routes.js'
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -24,7 +21,6 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    console.log(this.state)
   }
 
   render() {
