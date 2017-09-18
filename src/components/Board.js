@@ -42,7 +42,9 @@ class Board extends Component {
 
 		this.state.board.updateAvailableMoves(this.props.turn)
 
-		if (this.props.turn === "black" && prevProps.turn === "white") {
+		if (this.props.turn === "black" && 
+			prevProps.turn === "white" &&
+			this.props.gameMode === "single") {
 			setTimeout(function() {
 				let aiMove = ai.getBestMove(this.state.board, 2);
 				this.move(aiMove.piece, aiMove.destination);	
@@ -196,6 +198,7 @@ class Board extends Component {
 
 Board.propTypes = {
 	playerNames: PropTypes.objectOf(PropTypes.string).isRequired,
+	gameMode: PropTypes.oneOf(['single', 'local', 'multi']).isRequired,
 	turn: PropTypes.oneOf(['white', 'black']).isRequired,
 	nextTurn: PropTypes.func
 }

@@ -9,9 +9,11 @@ class App extends Component {
       playerNames: {
         white: "",
         black: ""
-      }
+      },
+      gameMode: "single"
     }
     this.updatePlayerNames = this.updatePlayerNames.bind(this)
+    this.updateGameMode = this.updateGameMode.bind(this)
   }
 
   updatePlayerNames(names) {
@@ -20,13 +22,24 @@ class App extends Component {
       })
   }
 
+  updateGameMode(mode) {
+    this.setState({
+      gameMode: mode
+    })
+  }
+
   componentDidUpdate() {
   }
 
   render() {
     return (
       <div className="App">
-        <Routes updatePlayerNames={this.updatePlayerNames} playerNames={this.state.playerNames}/>
+        <Routes 
+        updatePlayerNames={this.updatePlayerNames} 
+        updateGameMode={this.updateGameMode}
+        playerNames={this.state.playerNames}
+        gameMode={this.state.gameMode}
+        />
       </div>
     );
   }

@@ -41,6 +41,7 @@ class SingleContainer extends Component {
 	      };
 
 		this.props.updatePlayerNames(names);
+		this.props.updateGameMode("single");
 
 		this.setState({
 			redirect: true
@@ -74,7 +75,8 @@ class SingleContainer extends Component {
 }
 
 SingleContainer.propTypes = {
-	updatePlayerNames: PropTypes.func.isRequired
+	updatePlayerNames: PropTypes.func.isRequired,
+	updateGameMode: PropTypes.func.isRequired
 }
 
 export default SingleContainer;

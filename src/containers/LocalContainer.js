@@ -40,6 +40,7 @@ class LocalContainer extends Component {
 	      };
 
 		this.props.updatePlayerNames(names);
+		this.props.updateGameMode("local");
 
 		this.setState({
 			redirect: true
