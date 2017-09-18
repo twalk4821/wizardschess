@@ -43,30 +43,25 @@ class HomeContainer extends Component {
 	render() {
 		return (
 			<div className="homeContainer"> 
-			{this.state.step === 1 &&
-				<div>
-					<h1>Enter Username for White Player:</h1>
-					<form onSubmit={this.handleSubmit}>
-						<input value={this.state.white} onChange={this.handleChange}/>
-						<input type="submit" value="Continue" />
-					</form>
-				</div>
-			}
-			{this.state.step === 2 && 
-				<div>
-					<h1>Enter Username for Black Player:</h1>
-					<form onSubmit={this.handleSubmit}>
-						<input value={this.state.black} onChange={this.handleChange}/>
-						<input type="submit" value="Continue" onSubmit={this.handleSubmit}/>
-					</form>
-				</div>
-			}
-			{this.state.step === 3 && 
-				<div>
-					<h1>Ready to Play?</h1>
-					<Link to="/game">Play Chess!</Link>
-				</div>
-			}
+
+			<div className="App-header">
+			  <h2>Wizards Chess</h2>
+			</div>
+
+			<div className="mainMenu">
+			  <div className="mainMenuItem">
+			    <Link to="/single">Single Player</Link> 
+			  </div>
+			  <div className="mainMenuItem">
+			    <Link to="/local">Localhost</Link> 
+			  </div>
+			  <div className="mainMenuItem">
+			    <Link to="/multi">Multi Player</Link> 
+			  </div>
+			  <div className="mainMenuItem">
+			    <Link to="/options">Options</Link> 
+			  </div>
+			</div>
 				
 			</div>
 		)

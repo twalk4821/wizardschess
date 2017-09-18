@@ -1,5 +1,6 @@
 h1,h2,h3,h4,h5 {
-
+  padding: 0;
+  margin: 0;
 }
 
 .hud h2 {
@@ -14,6 +15,8 @@ h1,h2,h3,h4,h5 {
 	display: grid;
 	grid-template-rows: 1fr 1fr;
 	grid-template-columns: 1fr 1fr;
+		align-items: center;
+
 }
 
 .captured {
@@ -28,6 +31,8 @@ h1,h2,h3,h4,h5 {
 	height: 100px;
 	margin-top: 20px;
 	font-size: 18px;
+	grid-row-start: 1;
+	grid-row-end: 2;
 }
 
 .playerName {

@@ -80,7 +80,7 @@ class Hud extends Component {
 				<h3>{this.props.playerNames[this.props.turn]}'s turn</h3>
 				{!this.state.recording && 
 					<form onSubmit={this.startRecording}>
-						<input className="voiceCommand" type="submit" value="Enter Command"/>
+						<input className="voiceCommand" type="submit" value="Voice"/>
 					</form>
 				}
 				{this.state.recording &&
