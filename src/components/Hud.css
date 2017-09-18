@@ -12,6 +12,11 @@ h1,h2,h3,h4,h5 {
 	border-style: solid;
 	border-radius: 10px;
 	overflow: hidden;
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+	grid-template-columns: 1fr 1fr;
+		align-items: center;
+
 }
 
 .captured {
@@ -21,14 +26,22 @@ h1,h2,h3,h4,h5 {
 .voiceCommand {
 	color: white;
 	background-color: red;
-	border-radius: 5;
-	width: 200px;
-	height: 35px;
+	border-radius: 100%;
+	width: 100px;
+	height: 100px;
 	margin-top: 20px;
-	font-size: 18px
+	font-size: 18px;
+	grid-row-start: 1;
+	grid-row-end: 2;
 }
 
 .playerName {
 	background-color: black;
 	color: white;
+}
+
+@media (max-width: 500px) {
+	.hud{
+		width: 100%;
+	}
 }
