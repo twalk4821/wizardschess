@@ -59,8 +59,6 @@ class SingleContainer extends Component {
 			  	<h2>
 				  	<input className="submit" type="submit" value="Start Game"/> 
 				  </h2>
-				      <Paper style={style} zDepth={5} rounded={false} />
-
 	   	  </form>
 	    
 		    {this.state.redirect &&
