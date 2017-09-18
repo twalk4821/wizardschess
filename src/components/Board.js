@@ -19,7 +19,8 @@ class Board extends Component {
 			board: board,
 			activeSquare: null,
 			activeMoveset: null,
-			turnCount: 1
+			turnCount: 1,
+			lastMove: null
 		}
 
 		this.toggleActive = this.toggleActive.bind(this)
@@ -130,6 +131,9 @@ class Board extends Component {
 
 			this.setActiveSquare(null)
 			this.message.textContent = ""
+			this.setState({
+				lastMove: [piece, destination]
+			})
 			return true	
 		}
 		else {
@@ -173,7 +177,14 @@ class Board extends Component {
 				<div className="board">
 					{Squares}
 				</div>
-				<Hud executeCommand={this.executeCommand} turn={this.props.turn} turnCount={this.state.turnCount} capturedPieces={this.state.board.capturedPieces} playerNames={this.props.playerNames}/>
+				<Hud 
+				executeCommand={this.executeCommand} 
+				turn={this.props.turn} 
+				turnCount={this.state.turnCount} 
+				capturedPieces={this.state.board.capturedPieces} 
+				playerNames={this.props.playerNames}
+				lastMove={this.state.lastMove}
+				/>
 			</div>
 			</div>
 

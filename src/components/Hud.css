@@ -3,22 +3,29 @@ h1,h2,h3,h4,h5 {
   margin: 0;
 }
 
-.hud h2 {
-	text-align: center;
-}
+
 
 .hud {
 	float: right;
 	border-style: solid;
-	border-radius: 10px;
+	border-width: 1px;
 	overflow: hidden;
-	display: grid;
-	grid-template-rows: 1fr 1fr;
-	grid-template-columns: 1fr 1fr;
-		align-items: center;
-
 }
 
+.hud-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+}
+
+.hud-left {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+}
+
+.hud-left .turn {
+	margin-bottom: 10px;
+}
 .captured {
 	display: inline;
 }
@@ -31,13 +38,16 @@ h1,h2,h3,h4,h5 {
 	height: 100px;
 	margin-top: 20px;
 	font-size: 18px;
-	grid-row-start: 1;
-	grid-row-end: 2;
+	grid-row: 1 / 4;
 }
 
 .playerName {
 	background-color: black;
 	color: white;
+}
+
+.hud-left h2 {
+	text-align: left;
 }
 
 @media (max-width: 500px) {

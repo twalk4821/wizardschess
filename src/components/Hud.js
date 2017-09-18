@@ -71,23 +71,40 @@ class Hud extends Component {
 
 	}
 
+	convertMoveToAlgebraic() {
+
+		let piece = this.props.lastMove[0];
+		let destination = this.props.lastMove[1];
+		console.log(this.props.lastMove)
+		return `${piece.type} to ${String.fromCharCode(65 + destination.x)}${destination.y+1}`
+	}
+
 	render() {
 		let capturedWhite = this.props.capturedPieces["white"]
 		let capturedBlack = this.props.capturedPieces["black"]
 		
 		return (
 			<div className="hud">
-				<h3>{this.props.playerNames[this.props.turn]}'s turn</h3>
-				{!this.state.recording && 
-					<form onSubmit={this.startRecording}>
-						<input className="voiceCommand" type="submit" value="Voice"/>
-					</form>
-				}
-				{this.state.recording &&
-					<div>Listening...</div>
-				}
-				<div>{this.state.message}</div>
-				<h4>Turn: {this.props.turnCount}</h4>		
+				<div className="hud-grid">
+					<div className="hud-left">
+						<h1>{this.props.playerNames[this.props.turn]}</h1>
+						<h4>Last Move: {this.props.lastMove ? this.convertMoveToAlgebraic() : ""}</h4>
+						<h4 className="turn">Turn: {this.props.turnCount}</h4>		
+						<div>{this.state.message}</div>
+					</div>
+					<div className="hud-right">
+						{!this.state.recording && 
+							<form onSubmit={this.startRecording}>
+								<input className="voiceCommand" type="submit" value=""/>
+								<h4>Voice Command</h4>
+							</form>
+						}
+						{this.state.recording &&
+							<div>Listening...</div>
+						}
+					</div>
+				</div>
+				<div></div>
 			</div>
 		)
 	}
