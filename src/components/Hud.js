@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import images from '../assets/images.js'
 import './Hud.css'
 
 import PropTypes from 'prop-types'
@@ -74,16 +73,12 @@ class Hud extends Component {
 	}
 
 	convertMoveToAlgebraic() {
-
 		let piece = this.props.lastMove[0];
 		let destination = this.props.lastMove[1];
-		console.log(this.props.lastMove)
 		return `${piece.type} to ${String.fromCharCode(65 + destination.x)}${destination.y+1}`
 	}
 
 	render() {
-		let capturedWhite = this.props.capturedPieces["white"]
-		let capturedBlack = this.props.capturedPieces["black"]
 		
 		return (
 			<div className="hud">

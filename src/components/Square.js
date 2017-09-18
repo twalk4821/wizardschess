@@ -22,7 +22,12 @@ class Square extends Component {
 		return (
 			<div className={classes} onClick={() => this.props.toggle(this)}>
 				{this.props.piece &&
-					<img src={images[this.props.piece.color + this.props.piece.type]} height="50" width="50"/>
+					<img 
+					src={images[this.props.piece.color + this.props.piece.type]} 
+					alt={this.props.piece ? this.props.piece.type : ""}
+					height="50" 
+					width="50"
+					/>
 				}
 			</div>
 		)
@@ -32,7 +37,7 @@ class Square extends Component {
 Square.propTypes = {
 	piece: PropTypes.object,
 	activeSquare: PropTypes.object,
-	toggleActive: PropTypes.func.isRequired,
+	toggleActive: PropTypes.func,
 	pos: PropTypes.objectOf(PropTypes.number).isRequired
 }
 

@@ -1,3 +1,5 @@
+		let capturedWhite = this.props.capturedPieces["white"]
+		let capturedBlack = this.props.capturedPieces["black"]
 <div>
 					<div className="playerName">{this.props.playerNames.white + " (White)"}</div>
 					<ul>

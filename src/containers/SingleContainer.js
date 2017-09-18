@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Paper } from 'material-ui/Paper';
 
 import PropTypes from 'prop-types'
@@ -28,6 +28,7 @@ class SingleContainer extends Component {
 				this.setState({
 					white: e.target.value
 				})
+				break;
 			default:
 				break;
 		}	

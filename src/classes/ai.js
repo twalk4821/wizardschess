@@ -37,7 +37,7 @@ function getBestMove(board, N, turn = "black") {
 				if (simulatedBoard.isCheckmate(turn === "white" ? "black" : "white")) return {
 						piece: piece,
 						destination: move,
-						score: minScore
+						score: 0
 					}  
 				const minScore = getBestScoreForMove(simulatedBoard, N, turn)
 				if (!bestMove) {

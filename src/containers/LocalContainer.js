@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 import PropTypes from 'prop-types'
 
@@ -17,7 +17,6 @@ class LocalContainer extends Component {
 	}
 
 	handleChange(e, color) {
-		console.log(e, color)
 		switch (color) {
 			case "black":
 				this.setState({
@@ -28,6 +27,7 @@ class LocalContainer extends Component {
 				this.setState({
 					white: e.target.value
 				})
+				break;
 			default:
 				break;
 		}	
@@ -40,7 +40,7 @@ class LocalContainer extends Component {
 	      };
 
 		this.props.updatePlayerNames(names);
-		
+
 		this.setState({
 			redirect: true
 		})
