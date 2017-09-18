@@ -237,6 +237,10 @@ class Board {
 	}
 
 	addPieceAtLocation(piece, x, y) {
+		if(!this.grid[y]) {
+			throw new Error("cannot set (" + x + "," + y + ") for piece: " + piece.type)
+			console.log("cannot set (" + x + "," + y + ") for piece: " + piece.type)
+		} 
 		this.grid[y][x] = piece;
 		piece.pos = {
 					x: x,

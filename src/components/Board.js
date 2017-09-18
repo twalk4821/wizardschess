@@ -28,21 +28,23 @@ class Board extends Component {
 	}
 
 	componentDidMount() {
-		this.state.board.updateAvailableMoves()
+		this.state.board.updateAvailableMoves("white")
 	}
 
 	componentDidUpdate() {
 		let simulatedBoard = this.state.board.copy()
+
 		if (this.state.board.isCheck(this.props.turn)) {
 			this.state.board.isCheckmate(this.props.turn) ?
 				this.message.textContent = "Checkmate!!!" :
 				this.message.textContent = "Check.";
 		}
+
 		this.state.board.updateAvailableMoves(this.props.turn)
+
 		if (this.props.turn === "black") {
 			let aiMove = ai.getBestMove(this.state.board, 2);
-			this.move(aiMove.piece, aiMove.destination);
-
+			this.move(aiMove.piece, aiMove.destination);			
 		}	
 	}
 
@@ -91,10 +93,8 @@ class Board extends Component {
 		const validTargets = []
 		for (let livePiece of livePiecesForCurrentPlayer[pieceType]) {
 			const moveset = livePiece.availableMoves
-			console.log(moveset)
 			if (this.state.board.destinationInMoveset(destination, moveset) &&
-				!this.state.board.movingIntoCheck(livePiece, destination)) {
-				console.log("pushing valid target: ", livePiece)
+				!this.state.board.movingIntoCheck(livePiece, destination, this.props.turn)) {
 				validTargets.push(livePiece)
 			}
 		}
