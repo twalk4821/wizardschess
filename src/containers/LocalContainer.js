@@ -11,7 +11,6 @@ class LocalContainer extends Component {
 	  	white: "Harry",
 	  	black: "Draco",
 	  	redirect: false,
-	  	gameMode: 'Local Host',
 	  	welcomeText: 'Challenge a friend on your local device.  Use voice command to control the board!! Customize player names below and press start to begin.'
 	  }
 	  //bind functions

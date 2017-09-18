@@ -13,7 +13,6 @@ class SingleContainer extends Component {
 	  	black: "Draco",
 	  	redirect: false, 
 	  	difficulty: 5,
-	  	gameMode: 'Single Player',
 	  	welcomeText: 'Test your skills against the computer! Customize player names and AI difficulty below. Press start to begin.'
 	  }
 	  //bind functions
@@ -24,8 +23,6 @@ class SingleContainer extends Component {
 
   handleDifficulty(e, sign){
   	let diff = sign === '+' ? this.state.difficulty + 1 : this.state.difficulty - 1;
-  	console.log('inside set difficulty', this.state.difficulty);
-  	console.log('inside set difficulty adding', diff);
 
   	this.setState({
   		difficulty: diff 
