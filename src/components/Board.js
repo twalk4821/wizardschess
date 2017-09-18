@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Board.css'
 
+import PropTypes from 'prop-types'
+
 import Square from './Square.js'
 import Algebra from './Algebra.js'
 import Hud from '../components/Hud.js'
@@ -191,6 +193,12 @@ class Board extends Component {
 			
 		)
 	}
+}
+
+Board.propTypes = {
+	playerNames: PropTypes.objectOf(PropTypes.string).isRequired,
+	turn: PropTypes.oneOf(['white', 'black']).isRequired,
+	nextTurn: PropTypes.func
 }
 
 export default Board

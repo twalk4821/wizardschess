@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
+import PropTypes from 'prop-types'
+
 class LocalContainer extends Component {
 	constructor(props) {
 	  super(props)
@@ -32,11 +34,13 @@ class LocalContainer extends Component {
 	}
 
 	handleSubmit() {
-		let names = {
-        white: this.state.white,
-        black: this.state.black
-      };
+		const names = {
+	        white: this.state.white,
+	        black: this.state.black
+	      };
+
 		this.props.updatePlayerNames(names);
+		
 		this.setState({
 			redirect: true
 		})
@@ -60,6 +64,10 @@ class LocalContainer extends Component {
 	   </div>
 	  )
 	}
+}
+
+LocalContainer.propTypes = {
+	updatePlayerNames: PropTypes.func.isRequired
 }
 
 export default LocalContainer;

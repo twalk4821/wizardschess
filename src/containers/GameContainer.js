@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Board from '../components/Board.js'
 import Hud from '../components/Hud.js'
 
+import PropTypes from 'prop-types'
+
 class GameContainer extends Component {
 	constructor(props) {
 		super(props)
@@ -27,6 +29,10 @@ class GameContainer extends Component {
 			</div>
 		)
 	}
+}
+
+GameContainer.propTypes = {
+	playerNames: PropTypes.objectOf(PropTypes.string).isRequired
 }
 
 export default GameContainer;

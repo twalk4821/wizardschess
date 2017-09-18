@@ -35,7 +35,7 @@ export default (props) => (
 
 	  { /* Finally, catch all unmatched routes */ }
 	    <Route path="/" render={() => (
-	  		<HomeContainer updatePlayerNames={props.updatePlayerNames} />
+	  		<HomeContainer />
 	  	)}/>
   </Switch>
 );

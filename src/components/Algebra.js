@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './Algebra.css'
 
+import PropTypes from 'prop-types'
+
 const Algebra = (props) => {
 	var label = ""
 	props.pos.y === -1 && props.pos.x !== -1 ?
@@ -11,6 +13,10 @@ const Algebra = (props) => {
 			{label}
 		</div>
 	)
+}
+
+Algebra.propTypes = {
+	pos: PropTypes.objectOf(PropTypes.number).isRequired
 }
 
 
