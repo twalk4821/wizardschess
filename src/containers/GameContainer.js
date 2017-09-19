@@ -27,7 +27,8 @@ class GameContainer extends Component {
 				<Board 
 				ref ="board" 
 				nextTurn = {this.nextTurn} 
-				turn = {this.state.turn} 
+				turn = {this.state.turn}
+				gameMode = {this.props.gameMode}
 				playerNames={this.props.playerNames}/>
 			</div>
 		)
@@ -35,7 +36,8 @@ class GameContainer extends Component {
 }
 
 GameContainer.propTypes = {
-	playerNames: PropTypes.objectOf(PropTypes.string).isRequired
+	playerNames: PropTypes.objectOf(PropTypes.string).isRequired,
+	gameMode: PropTypes.oneOf(["single", "local", "multi"])
 }
 
 export default GameContainer;

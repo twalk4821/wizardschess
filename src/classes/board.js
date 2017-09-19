@@ -262,6 +262,7 @@ class Board {
 		this.removePieceAtLocation(piece.pos.x, piece.pos.y);
 		this.removeFromLivePieces(piece)
 		let simulatedPiece = Piece.makePiece(piece.type, piece.color)
+		simulatedPiece.hasMoved = piece.hasMoved
 		this.addToLivePieces(simulatedPiece)
 		if (this.getPieceAtLocation(destination.x, destination.y)) {
 			this.capturePieceAtLocation(simulatedPiece, destination.x, destination.y)

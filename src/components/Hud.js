@@ -41,6 +41,10 @@ class Hud extends Component {
 		}
 
 	startRecording(e) {
+		if (this.props.gameMode === "single" && this.props.turn === "black") {
+			e.preventDefault()
+			return;
+		}
 		
 		this.setState({
 			recording: true,
@@ -79,9 +83,13 @@ class Hud extends Component {
 	}
 
 	render() {
+		const classes = "hud" + (this.props.gameMode === "single" && 
+								 this.props.turn === "black" ?
+								 " deactivated" :
+								 "")
 		
 		return (
-			<div className="hud">
+			<div className={classes}>
 				<div className="hud-grid">
 					<div className="hud-left">
 						<h1>{this.props.playerNames[this.props.turn]}</h1>
@@ -113,6 +121,7 @@ Hud.propTypes = {
 	turnCount: PropTypes.number.isRequired,
 	executeCommand: PropTypes.func.isRequired,
 	lastMove: PropTypes.arrayOf(PropTypes.object),
+	gameMode: PropTypes.oneOf(["single", "local", "multi"]),
 	capturedPieces: PropTypes.shape({
 		white: PropTypes.shape({
 			rook: PropTypes.array,
