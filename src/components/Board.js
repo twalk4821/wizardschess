@@ -33,7 +33,7 @@ class Board extends Component {
 		this.state.board.updateAvailableMoves("white")
 	}
 
-	componentDidUpdate() {
+	componentDidUpdate(prevProps) {
 		if (this.state.board.isCheck(this.props.turn)) {
 			this.state.board.isCheckmate(this.props.turn) ?
 				this.message.textContent = "Checkmate!!!" :
@@ -42,9 +42,13 @@ class Board extends Component {
 
 		this.state.board.updateAvailableMoves(this.props.turn)
 
-		if (this.props.turn === "black") {
-			let aiMove = ai.getBestMove(this.state.board, 2);
-			this.move(aiMove.piece, aiMove.destination);			
+		if (this.props.turn === "black" && 
+			prevProps.turn === "white" &&
+			this.props.gameMode === "single") {
+			setTimeout(function() {
+				let aiMove = ai.getBestMove(this.state.board, 2);
+				this.move(aiMove.piece, aiMove.destination);	
+			}.bind(this), 1500)			
 		}	
 	}
 
@@ -124,7 +128,6 @@ class Board extends Component {
 			if (this.props.turn === "black") {
 				this.incrementTurnCount()
 			}
-			this.props.nextTurn()
 
 			piece.hasMoved = true;
 
@@ -133,6 +136,7 @@ class Board extends Component {
 			this.setState({
 				lastMove: [piece, destination]
 			})
+			this.props.nextTurn()
 			return true	
 		}
 		else {
@@ -182,6 +186,7 @@ class Board extends Component {
 				turnCount={this.state.turnCount} 
 				capturedPieces={this.state.board.capturedPieces} 
 				playerNames={this.props.playerNames}
+				gameMode={this.props.gameMode}
 				lastMove={this.state.lastMove}
 				/>
 			</div>
@@ -194,6 +199,7 @@ class Board extends Component {
 
 Board.propTypes = {
 	playerNames: PropTypes.objectOf(PropTypes.string).isRequired,
+	gameMode: PropTypes.oneOf(['single', 'local', 'multi']).isRequired,
 	turn: PropTypes.oneOf(['white', 'black']).isRequired,
 	nextTurn: PropTypes.func
 }

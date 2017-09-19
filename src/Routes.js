@@ -10,16 +10,24 @@ import OptionsContainer from './containers/OptionsContainer.js'
 export default (props) => (
   <Switch>
 	  <Route path="/game" exact render={() => (
-	  	<GameContainer playerNames={props.playerNames} />
+	  	<GameContainer 
+	  	playerNames={props.playerNames}
+	  	gameMode={props.gameMode}
+	  	/>
 	  )} />
   
 
 	  <Route path="/single" exact render={() => (
-	  	<SingleContainer updatePlayerNames={props.updatePlayerNames} />
+	  	<SingleContainer 
+	  	updatePlayerNames={props.updatePlayerNames} 
+	  	updateGameMode={props.updateGameMode} />
 	  )}/>
 
 	  <Route path="/local" exact render={() => (
-	  	<LocalContainer updatePlayerNames={props.updatePlayerNames} />
+	  	<LocalContainer 
+	  	updatePlayerNames={props.updatePlayerNames}
+	  	updateGameMode={props.updateGameMode} 
+	  	/>
 	  )}/>
 
 	  <Route path="/multi" exact render={() => (

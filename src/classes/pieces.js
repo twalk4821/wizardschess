@@ -134,7 +134,7 @@ class Pawn extends Piece {
 			let positionVector = new Vector(this.pos.x, this.pos.y)
 			let newLocation = Vector.add(positionVector, movementVector)
 
-			if (!board.getPieceAtLocation(newLocation.x, newLocation.y)) {
+			if (!board.getPieceAtLocation(newLocation.x, newLocation.y) && Piece.onBoard(newLocation)) {
 				moveset.push({
 					x: newLocation.x, 
 					y: newLocation.y
@@ -154,6 +154,11 @@ class Pawn extends Piece {
 					})
 				}
 			}
+		}
+		if (moveset.some((ele) => {
+			return ele.x < 0 || ele.y < 0 || ele.x > 7 || ele.y > 7
+		})) {
+			console.log(board, this, moveset)
 		}
 		return moveset	
 
