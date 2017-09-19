@@ -31,7 +31,6 @@ const style = {
 
 const paperCard = (props) => (
   <div>
-    <Paper style={style} zDepth={3}>
       {props.welcomeText && 
       	<div>
 	      	<h2>
@@ -42,6 +41,7 @@ const paperCard = (props) => (
 	      	</h5>
 	      </div>
       }
+    <Paper style={style} zDepth={3}>
       {props.value &&
       	<div>
 	        <h4> Enter name for {props.color} </h4> 

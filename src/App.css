@@ -9,12 +9,13 @@
 }
 
 .App-header {
-  background-image: url("https://t3.ftcdn.net/jpg/01/24/77/32/240_F_124773288_bmIx5Y8F1baiBLyGUbVXNt1EzZ6J0SQR.jpg");
+  /*background-image: url("https://t3.ftcdn.net/jpg/01/24/77/32/240_F_124773288_bmIx5Y8F1baiBLyGUbVXNt1EzZ6J0SQR.jpg");*/
   background-size: 100% 100%;
   background-repeat: no-repeat;
   height: 100px;
   padding: 20px;
-  color: white;
+  color: black;
+  text-decoration: none;
   font-size: 30px;
 }
 
@@ -29,4 +30,30 @@
 
 h2 {
   padding: 5px;
+}
+
+.mainMenu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  align-items: stretch;
+  border: 1px solid red;
+  width: 70%;
+  margin: 0 auto;
+  text-decoration: none;
+}
+
+.mainMenuItem {
+  flex: auto;
+  align-items: stretch;
+  align-self: stretch;
+  font-size: 2em;
+  border: 1px solid black;
+  padding: 1em;
+}
+
+.mainMenuItem:hover {
+  background-color: black;
+  color: white;
+  transition: 0.2s ease;
 }
