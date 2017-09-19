@@ -28,7 +28,7 @@ h1,h2,h3,h4,h5 {
 
 
 
-@media (min-width: 501px) {
+@media (min-width: 1051px) {
 
 .playArea{
 	display: grid;

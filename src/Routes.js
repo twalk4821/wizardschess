@@ -19,19 +19,25 @@ export default (props) => (
 
 	  <Route path="/single" exact render={() => (
 	  	<SingleContainer 
-	  	updatePlayerNames={props.updatePlayerNames} 
-	  	updateGameMode={props.updateGameMode} />
+	  	  updatePlayerNames={props.updatePlayerNames} 
+	  	  updateGameMode={props.updateGameMode} 
+	  	  gameMode={props.gameMode}
+	    />
 	  )}/>
 
 	  <Route path="/local" exact render={() => (
 	  	<LocalContainer 
 	  	updatePlayerNames={props.updatePlayerNames}
 	  	updateGameMode={props.updateGameMode} 
+     	gameMode={props.gameMode}
 	  	/>
 	  )}/>
 
 	  <Route path="/multi" exact render={() => (
-	  	<MultiContainer updatePlayerNames={props.updatePlayerNames} />
+	  	<MultiContainer 
+	  	  updatePlayerNames={props.updatePlayerNames} 
+	     	gameMode={props.gameMode}
+	  	/>
 	  )}/>
 
 	  <Route path="/options" exact render={() => (

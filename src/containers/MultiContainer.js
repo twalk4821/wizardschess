@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MultiplayerHeader from '../components/multiplayerHeader.js';
 
 class MultiContainer extends Component {
 	constructor(props) {
@@ -15,6 +16,16 @@ class MultiContainer extends Component {
 	  	    <h2>Wizards Chess</h2>
 	  	  </div>
 	      <h1>Multi Player</h1>
+	      <MultiplayerHeader 
+	        type='Host'
+	        value='Create Room'
+	        message='Create a gameroom and challenge opponents in public and private matches'
+	      />
+	      <MultiplayerHeader 
+	        type='Join'
+	        value='Enter Room'
+	        message='Join a currently open gameroom to challenge or observe'
+	      />
 	    </div>
 	  )
 	}

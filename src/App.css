@@ -35,8 +35,8 @@ h2 {
 .mainMenu {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; 
-  align-items: stretch;
+  /*justify-content: space-between; */
+  /*align-items: stretch;*/
   border: 1px solid red;
   width: 70%;
   margin: 0 auto;
@@ -44,16 +44,16 @@ h2 {
 }
 
 .mainMenuItem {
-  flex: auto;
-  align-items: stretch;
-  align-self: stretch;
+  flex: 1;
+  /*align-items: stretch;*/
+  /*align-self: stretch;*/
   font-size: 2em;
   border: 1px solid black;
   padding: 1em;
 }
 
 .mainMenuItem:hover {
-  background-color: black;
+  background-color: #c3c3c3;
   color: white;
   transition: 0.2s ease;
 }
