@@ -74,7 +74,7 @@ class SingleContainer extends Component {
 		  	>
 		  	  <Paper
 		  	    className='formFlexitem'
-		  	    gameMode={this.state.gameMode}
+		  	    gameMode={this.props.gameMode}
 		  	    welcomeText={this.state.welcomeText}
 		  	  />
 		  	  <Paper

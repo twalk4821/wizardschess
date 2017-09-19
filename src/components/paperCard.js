@@ -1,23 +1,3 @@
-// import React from 'react';
-// import { Paper, TextField } from 'material-ui/Paper';
-
-// const style = {
-// 	height: 100,
-// 	  width: 100,
-// 	  margin: 20,
-// 	  textAlign: 'center',
-// 	  display: 'inline-block',
-// }
-
-// const paperCard = () => (
-//   <div>
-// 	  <Paper style={style} zDepth={5} />
-//   </div>
-// )
-  
-// export default paperCard;
-
-
 import React from 'react';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField'
@@ -31,7 +11,6 @@ const style = {
 
 const paperCard = (props) => (
   <div>
-    <Paper style={style} zDepth={3}>
       {props.welcomeText && 
       	<div>
 	      	<h2>
@@ -42,6 +21,7 @@ const paperCard = (props) => (
 	      	</h5>
 	      </div>
       }
+    <Paper style={style} zDepth={3}>
       {props.value &&
       	<div>
 	        <h4> Enter name for {props.color} </h4> 
