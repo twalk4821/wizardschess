@@ -1,0 +1,20 @@
+{
+  "name": "wizardsChessAPI",
+  "version": "1.0.0",
+  "description": "API for wizards chess client",
+  "main": "index.js",
+  "author": "Tyler Walker <tyjohnwalker@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.1",
+    "concurrently": "^3.5.0",
+    "express": "^4.15.4",
+    "path": "^0.12.7"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "cd client && yarn start"
+  }
+}
